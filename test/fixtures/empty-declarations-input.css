@@ -1,0 +1,12 @@
+.foo {
+  color: red;
+  background-color: cyan;
+}
+
+.bar {
+  ;
+}
+
+.baz {
+  /* empty */
+}

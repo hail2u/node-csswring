@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.foo {
+  color: red;
+  background-color: cyan;
+}
+
+@charset "UTF-8";
+
+.bar {
+  color: green;
+  background-color: magenta;
+}

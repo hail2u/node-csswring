@@ -1,0 +1,43 @@
+{
+  "name": "csswring",
+  "description": "Minify CSS file. That's only.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hail2u/node-csswring",
+  "author": {
+    "name": "Kyo Nagashima",
+    "email": "kyo@hail2u.net",
+    "url": "http://hail2u.net/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hail2u/node-csswring.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hail2u/node-csswring/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://hail2u.mit-license.org/2014"
+    }
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "nodeunit test"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.8.6"
+  },
+  "keywords": [
+    "css",
+    "minifier",
+    "minify",
+    "postcss"
+  ],
+  "dependencies": {
+    "postcss": "^0.3.2"
+  }
+}
