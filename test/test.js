@@ -17,7 +17,8 @@ var _loadInput = function (name) {
   });
 };
 var _loadExpected = function (name) {
-  return fs.readFileSync(path.join(fixtures, name + '-expected.css'), {
+  return fs.readFileSync(path.join(fixtures, name +
+    '-expected.css'), {
     encoding: 'utf8'
   });
 };
@@ -35,7 +36,10 @@ exports.testPublicInterfaces = function (test) {
     expected.toResult(opts).map
   );
 
-  test.strictEqual(postcss().use(csswring.processor).process(input).css, expected.toString());
+  test.strictEqual(
+    postcss().use(csswring.processor).process(input).css,
+    expected.toString()
+  );
 
   test.done();
 };
