@@ -9,7 +9,10 @@
 
 @import url("/css/include.css");
 
-.foo {
+.foo,   .bar,
+
+
+.baz {
   color: red;
   background-color: cyan;
 }
