@@ -1,0 +1,14 @@
+.foo {
+  content: '0em 0.111';
+  font-family: Font 0pt, Font 0.777, serif;
+  border: 0px solid red;
+  margin: 0 0 0 0;
+  margin: 0 0 0;
+  margin: 0 0;
+  background-position: 0 0;
+  -webkit-transform-origin: 0 0;
+  line-height: 0.6;
+  background-color: rgb(51, 102, 153);
+  background-color: hsl(22, 48.245823%, 34.8592227%);
+  color: #0000ee;
+}
