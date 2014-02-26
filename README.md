@@ -25,7 +25,7 @@ QUICK USAGE
     var css = fs.readFileSync('test.css', {
       encoding: 'utf8'
     });
-    fs.writeFileSync('test.min.css', csswring.wring(css));
+    fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
 
 LICENSE
