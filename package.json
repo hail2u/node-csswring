@@ -40,5 +40,8 @@
   "dependencies": {
     "postcss": "^0.3.2",
     "onecolor": "^2.4.0"
+  },
+  "bin": {
+    "csswring": "./bin/csswring"
   }
 }
