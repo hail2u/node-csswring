@@ -22,14 +22,11 @@
     }
   ],
   "main": "index.js",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
   "scripts": {
     "test": "nodeunit test"
   },
   "devDependencies": {
-    "nodeunit": "^0.8.6"
+    "nodeunit": "~0.8.6"
   },
   "keywords": [
     "css",
@@ -38,8 +35,8 @@
     "postcss"
   ],
   "dependencies": {
-    "postcss": "^0.3.2",
-    "onecolor": "^2.4.0",
+    "postcss": "~0.3.2",
+    "onecolor": "~2.4.0",
     "minimist": "0.0.8"
   },
   "bin": {
