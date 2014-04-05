@@ -28,6 +28,24 @@ QUICK USAGE
     fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
 
+CLI USAGE
+---------
+
+This package also installs a command line interface.
+
+    $ node ./node_modules/.bin/csswring --help
+    Usage:
+      csswring [options] [INPUT] [OUTPUT]
+    
+    Description:
+      Minify CSS file. That's only.
+    
+    Options:
+          --sourcemap  Create source map file.
+      -h, --help       Show this message.
+      -v, --version    Print version information.
+
+
 LICENSE
 -------
 
