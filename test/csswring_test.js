@@ -45,14 +45,15 @@ exports.testPublicInterfaces = function (test) {
 };
 
 exports.testRealCSS = function (test) {
-  test.expect(5);
+  test.expect(6);
 
   var testCases = [
     'simple',
     'extra-semicolons',
     'empty-declarations',
     'single-charset',
-    'value'
+    'value',
+    'issue3'
   ];
 
   for (var i = 0, l = testCases.length; i < l; i++) {
