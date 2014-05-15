@@ -24,7 +24,7 @@ var loadExpected = function (name) {
 };
 
 exports.testPublicInterfaces = function (test) {
-  test.expect(3);
+  test.expect(4);
 
   input = '.foo{color:black}';
   expected = postcss.parse(input);
@@ -41,11 +41,16 @@ exports.testPublicInterfaces = function (test) {
     expected.toString()
   );
 
+  test.strictEqual(
+    postcss().use(csswring()).process(input).css,
+    expected.toString()
+  );
+
   test.done();
 };
 
 exports.testRealCSS = function (test) {
-  test.expect(6);
+  test.expect(7);
 
   var testCases = [
     'simple',
@@ -53,14 +58,15 @@ exports.testRealCSS = function (test) {
     'empty-declarations',
     'single-charset',
     'value',
-    'issue3'
+    'issue3',
+    'hacks'
   ];
 
   for (var i = 0, l = testCases.length; i < l; i++) {
     var testCase = testCases[i];
     input = loadInput(testCase);
     expected = loadExpected(testCase);
-    test.strictEqual(csswring.wring(input).css, expected);
+    test.strictEqual(csswring.wring(input, {}, {preserveHacks: true}).css, expected);
   }
 
   test.done();
