@@ -50,7 +50,7 @@ exports.testPublicInterfaces = function (test) {
 };
 
 exports.testRealCSS = function (test) {
-  test.expect(6);
+  test.expect(7);
 
   var testCases = [
     'simple',
@@ -58,14 +58,15 @@ exports.testRealCSS = function (test) {
     'empty-declarations',
     'single-charset',
     'value',
-    'issue3'
+    'issue3',
+    'hacks'
   ];
 
   for (var i = 0, l = testCases.length; i < l; i++) {
     var testCase = testCases[i];
     input = loadInput(testCase);
     expected = loadExpected(testCase);
-    test.strictEqual(csswring.wring(input).css, expected);
+    test.strictEqual(csswring.wring(input, {}, {preserveHacks: true}).css, expected);
   }
 
   test.done();
