@@ -47,6 +47,8 @@ exports.testPublicInterfaces = function (test) {
   expected = loadExpected(testCase);
   test.strictEqual(csswring.wring(input).css, expected);
 
+  csswring.preserveHacks = false;
+
   test.done();
 };
 
