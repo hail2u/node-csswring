@@ -41,9 +41,10 @@ This package also installs a command line interface.
       Minify CSS file. That's only.
     
     Options:
-          --sourcemap  Create source map file.
-      -h, --help       Show this message.
-      -v, --version    Print version information.
+          --sourcemap       Create source map file.
+          --preserve-hacks  Preserve some CSS hacks.
+      -h, --help            Show this message.
+      -v, --version         Print version information.
 
 
 LICENSE

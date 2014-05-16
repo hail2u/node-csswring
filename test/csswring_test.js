@@ -24,7 +24,7 @@ var loadExpected = function (name) {
 };
 
 exports.testPublicInterfaces = function (test) {
-  test.expect(3);
+  test.expect(4);
 
   input = '.foo{color:black}';
   expected = postcss.parse(input);
@@ -40,6 +40,12 @@ exports.testPublicInterfaces = function (test) {
     postcss().use(csswring.processor).process(input).css,
     expected.toString()
   );
+
+  csswring.preserveHacks = true;
+  var testCase = 'preserve-hacks';
+  input = loadInput(testCase);
+  expected = loadExpected(testCase);
+  test.strictEqual(csswring.wring(input).css, expected);
 
   test.done();
 };
