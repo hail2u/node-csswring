@@ -27,6 +27,9 @@ QUICK USAGE
     });
     fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
+If you want to preserve some CSS hacks, set `preserveHacks` property of
+this module to `true`.
+
 
 CLI USAGE
 ---------
