@@ -3,7 +3,7 @@ CSSWring
 
 Minify CSS file. That's only.
 
-Written with [PostCSS][1].
+Written with [PostCSS][1]. See also [grunt-csswring][2] created by [@princed][3].
 
 
 INSTALLATION
@@ -57,3 +57,5 @@ MIT: http://hail2u.mit-license.org/2014
 
 
 [1]: https://github.com/ai/postcss
+[2]: https://github.com/princed/grunt-csswring
+[3]: https://github.com/princed
