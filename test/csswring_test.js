@@ -24,7 +24,7 @@ var loadExpected = function (name) {
 };
 
 exports.testPublicInterfaces = function (test) {
-  test.expect(4);
+  test.expect(5);
 
   input = '.foo{color:black}';
   expected = postcss.parse(input);
@@ -35,6 +35,7 @@ exports.testPublicInterfaces = function (test) {
     csswring.wring(input, opts).map,
     expected.toResult(opts).map
   );
+  opts.map = undefined;
 
   test.strictEqual(
     postcss().use(csswring.processor).process(input).css,
@@ -46,8 +47,16 @@ exports.testPublicInterfaces = function (test) {
   input = loadInput(testCase);
   expected = loadExpected(testCase);
   test.strictEqual(csswring.wring(input).css, expected);
-
   csswring.preserveHacks = false;
+
+  csswring.removeAllComments = true;
+  opts.map = true;
+  testCase = 'remove-all-comments';
+  input = loadInput(testCase);
+  expected = loadExpected(testCase);
+  test.strictEqual(csswring.wring(input, opts).css, expected);
+  csswring.removeAllComments = false;
+  opts.map = undefined;
 
   test.done();
 };
