@@ -27,8 +27,27 @@ QUICK USAGE
     });
     fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
-If you want to preserve some CSS hacks, set `preserveHacks` property of
-this module to `true`.
+
+OPTIONS
+-------
+
+### `preserveHacks`
+
+By default, CSSWring removes all unknown portion of CSS declaration that
+includes some CSS hacks (e.g., underscore hacks and star hacks). If you want to
+preserve these hacks, set `preserveHacks` property of this module to `true`.
+
+    var csswring = require('csswring');
+    csswring.preserveHacks = true;
+
+
+### `removeAllComments`
+
+By default, CSSWring keeps a comment that start with `/*!`. If you want to
+remove all comments, set `removeAllComments` property of this module to `true`.
+
+    var csswring = require('csswring');
+    csswring.removeAllComments = true;
 
 
 CLI USAGE
@@ -44,10 +63,11 @@ This package also installs a command line interface.
       Minify CSS file. That's only.
     
     Options:
-          --sourcemap       Create source map file.
-          --preserve-hacks  Preserve some CSS hacks.
-      -h, --help            Show this message.
-      -v, --version         Print version information.
+          --sourcemap            Create source map file.
+          --preserve-hacks       Preserve some CSS hacks.
+          --remove-all-comments  Remove all comments.
+      -h, --help                 Show this message.
+      -v, --version              Print version information.
 
 
 LICENSE
