@@ -56,12 +56,12 @@ API
 Wring `css`.
 
 The second argument is optional. The `options` is same as the second argument of
-PostCSS's `process()` method. You can use this method for generating Source Map.
+PostCSS's `process()` method. This is useful for generating Source Map.
 
     var fs = require('fs');
     var csswring = require('csswring');
     
-    var css = fs.readFileSync('test.css', 'utf8');
+    var css = fs.readFileSync('from.css', 'utf8');
     var result = csswring.wring(css, {
       map: true,
       from: 'from.css',
