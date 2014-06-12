@@ -3,7 +3,7 @@ CSSWring
 
 Minify CSS file. That's only.
 
-Written with [PostCSS][1]. See also [grunt-csswring][2] created by [@princed][3].
+Written with [PostCSS][1]. See also [grunt-csswring][2] by [@princed][3].
 
 
 INSTALLATION
@@ -22,9 +22,7 @@ QUICK USAGE
     var fs = require('fs');
     var csswring = require('csswring');
     
-    var css = fs.readFileSync('test.css', {
-      encoding: 'utf8'
-    });
+    var css = fs.readFileSync('test.css', 'utf8');
     fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
 
@@ -48,6 +46,51 @@ remove all comments, set `removeAllComments` property of this module to `true`.
 
     var csswring = require('csswring');
     csswring.removeAllComments = true;
+
+
+API
+---
+
+### wring(css, [options])
+
+Wring `css`.
+
+The second argument is optional. The `options` is same as the second argument of
+PostCSS's `process()` method. You can use this method for generating Source Map.
+
+    var fs = require('fs');
+    var csswring = require('csswring');
+    
+    var css = fs.readFileSync('test.css', 'utf8');
+    var result = csswring.wring(css, {
+      map: true,
+      from: 'from.css',
+      to: 'to.css'
+    });
+    fs.writeFileSync('to.css', result.css);
+    fs.writeFileSync('to.css.map', result.map);
+
+See also [PostCSS document][4] for more about this `options`.
+
+
+### processor
+
+Returns a [PostCSS processor][5].
+
+You can use this property for combining with other PostCSS processors
+such as [Autoprefixer][6].
+
+    var fs = require('fs');
+    var postcss = require('postcss');
+    var autoprefixer = require('autoprefixer');
+    var csswring = require('csswring');
+    
+    var css = fs.readFileSync('test.css', 'utf8');
+    postcss().use(
+      autoprefixer.postcss
+    ).use(
+      csswring.processor
+    ).process(css);
 
 
 CLI USAGE
@@ -79,3 +122,6 @@ MIT: http://hail2u.mit-license.org/2014
 [1]: https://github.com/ai/postcss
 [2]: https://github.com/princed/grunt-csswring
 [3]: https://github.com/princed
+[4]: https://github.com/ai/postcss#source-map-1
+[5]: https://github.com/ai/postcss#processor
+[6]: https://github.com/ai/autoprefixer
