@@ -31,7 +31,10 @@
   "keywords": [
     "css",
     "minifier",
-    "minify",
+    "minification",
+    "sourcemap",
+    "source",
+    "map",
     "postcss"
   ],
   "dependencies": {
