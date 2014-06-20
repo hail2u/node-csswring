@@ -26,7 +26,7 @@
     "test": "nodeunit test"
   },
   "devDependencies": {
-    "nodeunit": "~0.8.6"
+    "nodeunit": "^0.9.0"
   },
   "keywords": [
     "css",
@@ -38,9 +38,9 @@
     "postcss"
   ],
   "dependencies": {
-    "postcss": "~0.3.2",
-    "onecolor": "~2.4.0",
-    "minimist": "0.0.8"
+    "postcss": "^1.0.0",
+    "onecolor": "^2.4.0",
+    "minimist": "^0.2.0"
   },
   "bin": {
     "csswring": "./bin/csswring"
