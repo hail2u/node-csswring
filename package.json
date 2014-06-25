@@ -15,12 +15,7 @@
   "bugs": {
     "url": "https://github.com/hail2u/node-csswring/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://hail2u.mit-license.org/2014"
-    }
-  ],
+  "licenses": "MIT",
   "main": "index.js",
   "scripts": {
     "test": "nodeunit test"
