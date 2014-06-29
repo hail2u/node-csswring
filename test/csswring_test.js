@@ -13,14 +13,10 @@ var input = '';
 var expected = '';
 var opts = {};
 var loadInput = function (name) {
-  return fs.readFileSync(path.join(dirFixtures, name + '.css'), {
-    encoding: 'utf8'
-  });
+  return fs.readFileSync(path.join(dirFixtures, name + '.css'), 'utf8');
 };
 var loadExpected = function (name) {
-  return fs.readFileSync(path.join(dirExpected, name + '.css'), {
-    encoding: 'utf8'
-  });
+  return fs.readFileSync(path.join(dirExpected, name + '.css'), 'utf8');
 };
 
 exports.testPublicInterfaces = function (test) {
