@@ -33,19 +33,21 @@ OPTIONS
 
 By default, CSSWring removes all unknown portion of CSS declaration that
 includes some CSS hacks (e.g., underscore hacks and star hacks). If you want to
-preserve these hacks, set `preserveHacks` property of this module to `true`.
+preserve these hacks, pass `preserveHacks: true` to this module.
 
-    var csswring = require('csswring');
-    csswring.preserveHacks = true;
+    csswring({
+      preserveHacks: true
+    }).wring(css);
 
 
 ### `removeAllComments`
 
 By default, CSSWring keeps a comment that start with `/*!`. If you want to
-remove all comments, set `removeAllComments` property of this module to `true`.
+remove all comments, pass `removeAllComments: true` to this module.
 
-    var csswring = require('csswring');
-    csswring.removeAllComments = true;
+    csswring({
+      removeAllComments: true
+    }).wring(css);
 
 
 API
@@ -72,8 +74,17 @@ PostCSS's `process()` method. This is useful for generating Source Map.
 
 See also [PostCSS document][4] for more about this `options`.
 
+You can also merge CSSWring options mentioned above to the second argument:
 
-### processor
+    var result = csswring.wring(css, {
+      map: true,
+      from: 'from.css',
+      to: 'to.css',
+      preserveHacks: true
+    });
+
+
+### postcss
 
 Returns a [PostCSS processor][5].
 
@@ -94,6 +105,7 @@ such as [Autoprefixer][6].
 
 `.postcss` was previously called `.processor`, for backwards compatibility
 that name can still be used.
+
 
 CLI USAGE
 ---------
