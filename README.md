@@ -89,9 +89,11 @@ such as [Autoprefixer][6].
     postcss().use(
       autoprefixer.postcss
     ).use(
-      csswring.processor
+      csswring.postcss
     ).process(css);
 
+`.postcss` was previously called `.processor`, for backwards compatibility
+that name can still be used.
 
 CLI USAGE
 ---------

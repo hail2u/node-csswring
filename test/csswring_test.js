@@ -24,7 +24,7 @@ var loadExpected = function (name) {
 };
 
 exports.testPublicInterfaces = function (test) {
-  test.expect(12);
+  test.expect(13);
 
   input = '.foo{color:black}';
   expected = postcss.parse(input);
@@ -42,15 +42,21 @@ exports.testPublicInterfaces = function (test) {
   );
   opts.map = undefined;
 
-  // csswring.processor
+  // csswring.postcss
+  test.strictEqual(
+    postcss().use(csswring.postcss).process(input).css,
+    expected.toString()
+  );
+
+  // csswring.processor alias
   test.strictEqual(
     postcss().use(csswring.processor).process(input).css,
     expected.toString()
   );
 
-  // csswring().processor
+  // csswring().postcss
   test.strictEqual(
-    postcss().use(csswring().processor).process(input).css,
+    postcss().use(csswring().postcss).process(input).css,
     expected.toString()
   );
 
@@ -78,10 +84,10 @@ exports.testPublicInterfaces = function (test) {
   // csswring(options).wring()
   test.strictEqual(csswring({preserveHacks: true}).wring(preserveHacksInput).css, preserveHacksExpected);
 
-  // csswring(options).processor
+  // csswring(options).postcss
   test.strictEqual(
     postcss()
-      .use(csswring({preserveHacks: true}).processor)
+      .use(csswring({preserveHacks: true}).postcss)
       .process(preserveHacksInput)
       .css,
     preserveHacksExpected
@@ -93,7 +99,7 @@ exports.testPublicInterfaces = function (test) {
 
   test.strictEqual(
     postcss()
-      .use(a.processor)
+      .use(a.postcss)
       .process(preserveHacksInput)
       .css,
     preserveHacksExpected
@@ -101,7 +107,7 @@ exports.testPublicInterfaces = function (test) {
 
   test.strictEqual(
     postcss()
-      .use(b.processor)
+      .use(b.postcss)
       .process(input)
       .css,
     expected.toString()
