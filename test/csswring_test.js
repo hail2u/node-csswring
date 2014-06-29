@@ -31,7 +31,7 @@ exports.testPublicInterfaces = function (test) {
   test.strictEqual(csswring.wring(input).css, expected.toString());
 
   opts.map = true;
-  test.strictEqual(
+  test.deepEqual(
     csswring.wring(input, opts).map,
     expected.toResult(opts).map
   );
