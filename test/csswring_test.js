@@ -42,20 +42,20 @@ exports.testPublicInterfaces = function (test) {
     expected.toString()
   );
 
-  csswring.preserveHacks = true;
   var testCase = 'preserve-hacks';
   input = loadInput(testCase);
   expected = loadExpected(testCase);
-  test.strictEqual(csswring.wring(input).css, expected);
-  csswring.preserveHacks = false;
+  test.strictEqual(csswring.wring(input, {}, {
+    preserveHacks: true
+  }).css, expected);
 
-  csswring.removeAllComments = true;
   opts.map = true;
   testCase = 'remove-all-comments';
   input = loadInput(testCase);
   expected = loadExpected(testCase);
-  test.strictEqual(csswring.wring(input, opts).css, expected);
-  csswring.removeAllComments = false;
+  test.strictEqual(csswring.wring(input, opts, {
+    removeAllComments: true
+  }).css, expected);
   opts.map = undefined;
 
   test.done();
