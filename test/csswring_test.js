@@ -67,7 +67,7 @@ exports.testPublicInterfaces = function (test) {
 };
 
 exports.testOptions = function (test) {
-  test.expect(7);
+  test.expect(6);
 
   var testCase= '';
 
