@@ -134,7 +134,7 @@ exports.testOptions = function (test) {
 };
 
 exports.testRealCSS = function (test) {
-  test.expect(7);
+  test.expect(8);
 
   var testCases = [
     'simple',
@@ -143,7 +143,8 @@ exports.testRealCSS = function (test) {
     'single-charset',
     'value',
     'issue3',
-    'issue11'
+    'issue11',
+    'duplicate-decl'
   ];
 
   for (var i = 0, l = testCases.length; i < l; i++) {
