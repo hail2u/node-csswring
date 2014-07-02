@@ -57,7 +57,7 @@ exports['Public Interfaces'] = function (test) {
     expected.toString()
   );
 
-  // csswring.processor alias
+  // Old interfaces: csswring.processor alias
   test.strictEqual(
     postcss().use(csswring.processor).process(input).css,
     expected.toString()
@@ -103,7 +103,7 @@ exports['Option: preserveHacks'] = function (test) {
     postcss().use(b.postcss).process(expected).css
   );
 
-  // csswring.preserveHacks
+  // Old interfaces: csswring.preserveHacks
   csswring.preserveHacks = true;
   test.strictEqual(
     csswring.wring(input).css,
@@ -132,7 +132,7 @@ exports['Option: removeAllComments'] = function (test) {
     expected
   );
 
-  // csswring.removeAllComments
+  // Old interfaces: csswring.removeAllComments
   csswring.removeAllComments = true;
   test.strictEqual(
     csswring.wring(input, opts).css,
