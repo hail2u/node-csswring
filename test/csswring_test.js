@@ -11,7 +11,6 @@ var dirFixtures = path.join(__dirname, 'fixtures');
 var dirExpected = path.join(__dirname, 'expected');
 var input = '';
 var expected = '';
-var opts = {};
 var loadInput = function (name) {
   return fs.readFileSync(path.join(dirFixtures, name + '.css'), 'utf8');
 };
@@ -19,7 +18,7 @@ var loadExpected = function (name) {
   return fs.readFileSync(path.join(dirExpected, name + '.css'), 'utf8');
 };
 
-exports.testPublicInterfaces = function (test) {
+exports['Public Interfaces'] = function (test) {
   test.expect(6);
 
   input = '.foo{color:black}';
@@ -38,22 +37,17 @@ exports.testPublicInterfaces = function (test) {
   );
 
   // csswring.wring({ map: true })
-  opts.map = true;
+  var opts = {
+    map: true
+  };
   test.deepEqual(
     csswring.wring(input, opts).map,
     expected.toResult(opts).map
   );
-  opts.map = undefined;
 
   // csswring.postcss
   test.strictEqual(
     postcss().use(csswring.postcss).process(input).css,
-    expected.toString()
-  );
-
-  // csswring.processor alias
-  test.strictEqual(
-    postcss().use(csswring.processor).process(input).css,
     expected.toString()
   );
 
@@ -63,80 +57,96 @@ exports.testPublicInterfaces = function (test) {
     expected.toString()
   );
 
+  // Old interfaces: csswring.processor alias
+  test.strictEqual(
+    postcss().use(csswring.processor).process(input).css,
+    expected.toString()
+  );
+
   test.done();
 };
 
-exports.testOptions = function (test) {
-  test.expect(6);
+exports['Option: preserveHacks'] = function (test) {
+  test.expect(5);
 
-  var testCase= '';
-
-  // csswring.preserveHacks
-  csswring.preserveHacks = true;
-  testCase = 'preserve-hacks';
-  var preserveHacksInput = loadInput(testCase);
-  var preserveHacksExpected = loadExpected(testCase);
-  test.strictEqual(
-    csswring.wring(preserveHacksInput).css,
-    preserveHacksExpected
-  );
-  csswring.preserveHacks = false;
-
-  // csswring.removeAllComments
-  csswring.removeAllComments = true;
-  opts.map = true;
-  testCase = 'remove-all-comments';
-  var removeAllCommentsInput = loadInput(testCase);
-  var removeAllCommentsExpected = loadExpected(testCase);
-  test.strictEqual(
-    csswring.wring(removeAllCommentsInput, opts).css,
-    removeAllCommentsExpected
-  );
-  csswring.removeAllComments = false;
-  opts.map = undefined;
-
-  // csswring.wring(css, options)
-  test.strictEqual(
-    csswring.wring(preserveHacksInput, {
-      preserveHacks: true
-    }).css,
-    preserveHacksExpected
-  );
+  var testCase = 'preserve-hacks';
+  input = loadInput(testCase);
+  expected = loadExpected(testCase);
+  var opts = {
+    preserveHacks: true
+  };
 
   // csswring(options).wring()
   test.strictEqual(
-    csswring({
-      preserveHacks: true
-    }).wring(preserveHacksInput).css,
-    preserveHacksExpected
+    csswring(opts).wring(input).css,
+    expected
+  );
+
+  // csswring.wring(css, options)
+  test.strictEqual(
+    csswring.wring(input, opts).css,
+    expected
   );
 
   // csswring(options).postcss
   test.strictEqual(
-    postcss().use(csswring({
-      preserveHacks: true
-    }).postcss).process(preserveHacksInput).css,
-    preserveHacksExpected
+    postcss().use(csswring(opts).postcss).process(input).css,
+    expected
   );
 
   // options per instance
-  var a = csswring({
-    preserveHacks: true
-  });
+  var a = csswring(opts);
   var b = csswring();
 
   test.notStrictEqual(
-    postcss().use(a.postcss).process(preserveHacksInput).css,
-    postcss().use(b.postcss).process(preserveHacksInput).css
+    postcss().use(a.postcss).process(input).css,
+    postcss().use(b.postcss).process(expected).css
   );
+
+  // Old interfaces: csswring.preserveHacks
+  csswring.preserveHacks = true;
+  test.strictEqual(
+    csswring.wring(input).css,
+    expected
+  );
+  csswring.preserveHacks = false;
 
   test.done();
 };
 
-exports.testRealCSS = function (test) {
+exports['Option: removeAllComments'] = function (test) {
+  test.expect(2);
+
+  var testCase = 'remove-all-comments';
+  input = loadInput(testCase);
+  expected = loadExpected(testCase);
+  var opts = {
+    map: true
+  };
+
+  // csswring(options).wring()
+  test.strictEqual(
+    csswring({
+      removeAllComments: true
+    }).wring(input, opts).css,
+    expected
+  );
+
+  // Old interfaces: csswring.removeAllComments
+  csswring.removeAllComments = true;
+  test.strictEqual(
+    csswring.wring(input, opts).css,
+    expected
+  );
+  csswring.removeAllComments = false;
+
+  test.done();
+};
+
+exports['Real CSS'] = function (test) {
   test.expect(8);
 
-  var testCases = [
+  [
     'simple',
     'extra-semicolons',
     'empty-declarations',
@@ -145,17 +155,14 @@ exports.testRealCSS = function (test) {
     'issue3',
     'issue11',
     'duplicate-decl'
-  ];
-
-  for (var i = 0, l = testCases.length; i < l; i++) {
-    var testCase = testCases[i];
+  ].forEach(function (testCase) {
     input = loadInput(testCase);
     expected = loadExpected(testCase);
     test.strictEqual(
       csswring.wring(input).css,
       expected
     );
-  }
+  });
 
   test.done();
 };
