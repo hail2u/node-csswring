@@ -1,7 +1,7 @@
 {
   "name": "csswring",
   "description": "Minify CSS file. That's only.",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "homepage": "https://github.com/hail2u/node-csswring",
   "author": {
     "name": "Kyo Nagashima",
