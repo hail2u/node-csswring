@@ -33,7 +33,7 @@
     "postcss"
   ],
   "dependencies": {
-    "postcss": "^1.0.0",
+    "postcss": "^2.0.0",
     "onecolor": "^2.4.0",
     "minimist": "^0.2.0"
   },
