@@ -22,7 +22,9 @@ exports['Public Interfaces'] = function (test) {
   test.expect(6);
 
   input = '.foo{color:black}';
-  expected = postcss.parse(input);
+  expected = postcss.parse(input, {
+    from: 'from.css'
+  });
 
   // csswring.wring()
   test.strictEqual(
@@ -38,7 +40,9 @@ exports['Public Interfaces'] = function (test) {
 
   // csswring.wring({ map: true })
   var opts = {
-    map: true
+    map: true,
+    from: 'from.css',
+    to: 'to.css'
   };
   test.deepEqual(
     csswring.wring(input, opts).map,
