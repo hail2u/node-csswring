@@ -148,7 +148,7 @@ exports['Option: removeAllComments'] = function (test) {
 };
 
 exports['Real CSS'] = function (test) {
-  test.expect(10);
+  test.expect(11);
 
   [
     'simple',
@@ -160,7 +160,8 @@ exports['Real CSS'] = function (test) {
     'issue11',
     'duplicate-decl',
     'issue13',
-    'issue17'
+    'issue17',
+    'issue19'
   ].forEach(function (testCase) {
     input = loadInput(testCase);
     expected = loadExpected(testCase);
