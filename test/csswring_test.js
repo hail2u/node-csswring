@@ -148,7 +148,7 @@ exports['Option: removeAllComments'] = function (test) {
 };
 
 exports['Real CSS'] = function (test) {
-  test.expect(13);
+  test.expect(14);
 
   [
     'simple',
@@ -163,7 +163,8 @@ exports['Real CSS'] = function (test) {
     'issue17',
     'issue19',
     'at-media-params',
-    'raise-charset'
+    'raise-charset',
+    'font-weight'
   ].forEach(function (testCase) {
     input = loadInput(testCase);
     expected = loadExpected(testCase);
