@@ -130,9 +130,9 @@ LICENSE
 MIT: http://hail2u.mit-license.org/2014
 
 
-[1]: https://github.com/ai/postcss
+[1]: https://github.com/postcss/postcss
 [2]: https://github.com/princed/grunt-csswring
 [3]: https://github.com/princed
-[4]: https://github.com/ai/postcss#source-map-1
-[5]: https://github.com/ai/postcss#processor
-[6]: https://github.com/ai/autoprefixer
+[4]: https://github.com/postcss/postcss#source-map-1
+[5]: https://github.com/postcss/postcss#processor
+[6]: https://github.com/postcss/autoprefixer
