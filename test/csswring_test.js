@@ -7,7 +7,7 @@ var postcss = require('postcss');
 var csswring = require('../index');
 
 exports['Public API'] = function (test) {
-  test.expect(5);
+  test.expect(4);
 
   var input = '.foo{color:black}';
   var expected = postcss().process(input).css;
@@ -29,12 +29,6 @@ exports['Public API'] = function (test) {
 
   test.strictEqual(
     postcss().use(csswring().postcss).process(input).css,
-    expected
-  );
-
-  // Old interfaces
-  test.strictEqual(
-    postcss().use(csswring.processor).process(input).css,
     expected
   );
 
@@ -68,7 +62,7 @@ exports['Option: PostCSS options'] = function (test) {
 };
 
 exports['Option: preserveHacks'] = function (test) {
-  test.expect(5);
+  test.expect(4);
 
   var input = '.hacks{*color:black;_background:white;font-size/**/:big}';
   var expected = '.hacks{*color:black;_background:white;font-size/**/:big}';
@@ -99,19 +93,11 @@ exports['Option: preserveHacks'] = function (test) {
     postcss().use(b.postcss).process(expected).css
   );
 
-  // Old interfaces
-  csswring.preserveHacks = true;
-  test.strictEqual(
-    csswring.wring(input).css,
-    expected
-  );
-  csswring.preserveHacks = false;
-
   test.done();
 };
 
 exports['Option: removeAllComments'] = function (test) {
-  test.expect(3);
+  test.expect(2);
 
   var input = '/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
   var expected = '.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
@@ -132,14 +118,6 @@ exports['Option: removeAllComments'] = function (test) {
     }).wring(input, opts).css,
     expected
   );
-
-  // Old interfaces
-  csswring.removeAllComments = true;
-  test.strictEqual(
-    csswring.wring(input, opts).css,
-    expected
-  );
-  csswring.removeAllComments = false;
 
   test.done();
 };
