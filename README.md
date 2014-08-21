@@ -1,7 +1,7 @@
 CSSWring
 ========
 
-Minify CSS file. That's only.
+Minify CSS file with Source Maps. That's only.
 
 Written with [PostCSS][1]. See also [grunt-csswring][2] by [@princed][3].
 
@@ -114,7 +114,7 @@ This package also installs a command line interface.
       csswring [options] [INPUT] [OUTPUT]
     
     Description:
-      Minify CSS file. That's only.
+      Minify CSS file with Source Maps. That's only.
     
     Options:
           --sourcemap            Create source map file.
