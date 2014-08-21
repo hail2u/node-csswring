@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Foo";
+  src: url("foo.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-variant: normal;
+  font-feature-settings: normal;
+}
+
+@font-face {
+  font-family: "Bar";
+  src: url("bar.woff") format("woff");
+  font-weight: 400;
+}
