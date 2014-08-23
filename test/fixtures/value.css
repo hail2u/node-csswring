@@ -1,6 +1,7 @@
 .foo {
   content: '0em 0.111 rgb(0, 0, 0)';
   font-family: Font 0pt, Font 0.777, "rgba(255, 255, 255, 0.2)", serif;
+  top: 00010.7px;
   border: 0px solid red;
   margin: 0 0 0 0;
   padding: 0 0 0;
