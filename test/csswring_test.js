@@ -57,16 +57,17 @@ exports['Option: PostCSS options'] = function (test) {
     to: 'to.css'
   };
   var input = '.foo{color:black}';
+  var processed = csswring.wring(input, opts);
   var expected = postcss().process(input, opts);
 
   // csswring.wring(css, options)
   test.strictEqual(
-    csswring.wring(input, opts).css,
+    processed.css,
     expected.css
   );
 
   test.deepEqual(
-    csswring.wring(input, opts).map,
+    processed.map,
     expected.map
   );
 
