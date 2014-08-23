@@ -1,13 +1,15 @@
-@charset "UTF-8";
-
 .foo {
-  color: red;
-  background-color: cyan;
+  display: block;
 }
 
 @charset "UTF-8";
 
 .bar {
-  color: green;
-  background-color: magenta;
+  display: block;
+}
+
+@charset "UTF-8";
+
+.baz {
+  display: block;
 }

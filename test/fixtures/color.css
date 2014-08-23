@@ -1,0 +1,6 @@
+.foo {
+  background-color: rgb(51, 102, 153);
+  background-color: hsl(22, 48.245823%, 34.8592227%);
+  color: #0000ee;
+  background-image: linear-gradient(rgb(255, 255, 255), #000000);
+}
