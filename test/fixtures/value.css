@@ -7,7 +7,8 @@
   border-width: 0 0;
   background-position: 0 0;
   -webkit-transform-origin: 0 0;
-  line-height: 0.6;
+  line-height: 0.60;
+  transform: rotate(-0.90deg);
   background-color: rgb(51, 102, 153);
   background-color: hsl(22, 48.245823%, 34.8592227%);
   color: #0000ee;
