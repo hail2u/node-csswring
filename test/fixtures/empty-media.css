@@ -1,0 +1,10 @@
+.foo {
+  display: block;
+}
+
+@media (min-width: 99px) {
+}
+
+@media (min-width: 99px) {
+  .bar {}
+}
