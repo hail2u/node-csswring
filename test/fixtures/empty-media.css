@@ -8,3 +8,11 @@
 @media (min-width: 99px) {
   .bar {}
 }
+
+@media (min-width: 99px) {
+  /* empty */
+}
+
+@media (min-width: 99px) {
+  /*! not empty */
+}

@@ -1,1 +1,1 @@
-.foo{display:block}
+.foo{display:block}@media(min-width:99px){/*! not empty */}

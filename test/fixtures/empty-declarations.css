@@ -1,6 +1,5 @@
 .foo {
-  color: red;
-  background-color: cyan;
+  display: block;
 }
 
 .bar {
@@ -9,4 +8,8 @@
 
 .baz {
   /* empty */
+}
+
+.qux {
+  /*! not empty */
 }
