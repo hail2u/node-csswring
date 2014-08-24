@@ -5,14 +5,18 @@
 @media (min-width: 99px) {
 }
 
-@media (min-width: 99px) {
+@font-face {
+  font-style: normal;
+}
+
+@supports (margin: 0) {
   .bar {}
 }
 
-@media (min-width: 99px) {
+@page {
   /* empty */
 }
 
-@media (min-width: 99px) {
+@keyframes baz {
   /*! not empty */
 }
