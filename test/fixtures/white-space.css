@@ -15,7 +15,10 @@
       {
           display
         : block
-          ;  }
+          !important; 
+      background-image: url(
+    "bar.png"
+  );   }
 }
           
 
