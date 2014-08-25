@@ -8,7 +8,7 @@ var postcss = require('postcss');
 var csswring = require('../index');
 
 exports.API = function (test) {
-  test.expect(5);
+  test.expect(6);
 
   var input = '.foo{color:black}';
   var expected = postcss().process(input, {
@@ -30,6 +30,12 @@ exports.API = function (test) {
   // csswring.postcss
   test.strictEqual(
     postcss().use(csswring.postcss).process(input).css,
+    expected
+  );
+
+  // require('csswring').postcss
+  test.strictEqual(
+    postcss().use(require('../index').postcss).process(input).css,
     expected
   );
 
