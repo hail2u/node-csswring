@@ -3,4 +3,5 @@
   background-color: hsL(22, 48.245823%, 34.8592227%);
   color: #aa00EE;
   background-image: linear-gradient(rgb(255, 255, 255), #000000);
+  outline-color: rgb(255, 0, 0);
 }
