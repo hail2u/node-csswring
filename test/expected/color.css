@@ -1,1 +1,1 @@
-.foo{background-color:#369;background-color:#844d2e;color:#a0e;background-image:linear-gradient(#fff,#000);outline-color:red;border-color:khaki}.bar{color:rgba(128,128,128,.5);background-color:rgba(128,128,128,.5);border-color:transparent}
+.foo{border-top-color:#369;border-right-color:#844d2e;border-bottom-color:#a0e;border-left-color:red;border-color:khaki;background-image:linear-gradient(#fff,#000)}.bar{border-color:rgba(128,128,128,.5);color:rgba(128,128,128,.5);background-color:transparent}
