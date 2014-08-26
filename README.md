@@ -124,6 +124,13 @@ This package also installs a command line interface.
       -v, --version              Print version information.
 
 
+MINIFICATIONS
+-------------
+
+CSSWring doesn't remove only white spaces or comments, but also remove an
+unnecessary parts of CSS. See minification details in [our GitHub Wiki][7].
+
+
 LICENSE
 -------
 
@@ -136,3 +143,4 @@ MIT: http://hail2u.mit-license.org/2014
 [4]: https://github.com/postcss/postcss#source-map-1
 [5]: https://github.com/postcss/postcss#processor
 [6]: https://github.com/postcss/autoprefixer
+[7]: https://github.com/hail2u/node-csswring/wiki
