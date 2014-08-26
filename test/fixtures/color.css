@@ -5,6 +5,10 @@
   background-image: linear-gradient(rgb(255, 255, 255), #000000);
   outline-color: rgb(255, 0, 0);
   border-color: #f0e68c;
-  text-shadow: rgba(128, 128, 128, 0.5) 0 0;
-  box-shadow: 0 0 rgba(0, 0, 0, 0);
+}
+
+.bar {
+  color: hslA(0, 0%, 50.2%, 0.5);
+  background-color: rgba(128, 128, 128, 0.5);
+  border-color: rgba(0, 0, 0, 0);
 }
