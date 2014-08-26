@@ -6,4 +6,5 @@
   outline-color: rgb(255, 0, 0);
   border-color: #f0e68c;
   text-shadow: rgba(128, 128, 128, 0.5) 0 0;
+  box-shadow: 0 0 rgba(0, 0, 0, 0);
 }
