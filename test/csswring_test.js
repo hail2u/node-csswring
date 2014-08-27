@@ -14,37 +14,32 @@ exports.API = function (test) {
     from: 'from.css'
   }).css;
 
-  // csswring.wring()
   test.strictEqual(
     csswring.wring(input).css,
     expected
   );
 
-  // csswring().wring()
   test.strictEqual(
     csswring().wring(input).css,
     expected
   );
 
-  // csswring.postcss
   test.strictEqual(
     postcss().use(csswring.postcss).process(input).css,
     expected
   );
 
-  // require('csswring').postcss
   test.strictEqual(
     postcss().use(require('../index').postcss).process(input).css,
     expected
   );
 
-  // csswring().postcss
   test.strictEqual(
     postcss().use(csswring().postcss).process(input).css,
     expected
   );
 
-  // Old interfaces: csswring.processor alias
+  // Old interfaces
   test.strictEqual(
     postcss().use(csswring.processor).process(input).css,
     expected
@@ -65,7 +60,6 @@ exports['Option: PostCSS options'] = function (test) {
   var processed = csswring.wring(input, opts);
   var expected = postcss().process(input, opts);
 
-  // csswring.wring(css, options)
   test.strictEqual(
     processed.css,
     expected.css
@@ -89,25 +83,21 @@ exports['Option: preserveHacks'] = function (test) {
     preserveHacks: true
   };
 
-  // csswring.wring()
   test.notStrictEqual(
     csswring.wring(input).css,
     expected
   );
 
-  // csswring({ preserveHacks: true }).wring()
   test.strictEqual(
     csswring(opts).wring(input).css,
     expected
   );
 
-  // csswring.wring(css, { preserveHacks: true })
   test.strictEqual(
     csswring.wring(input, opts).css,
     expected
   );
 
-  // Options per instance
   var a = csswring(opts);
   var b = csswring();
 
@@ -116,7 +106,7 @@ exports['Option: preserveHacks'] = function (test) {
     postcss().use(b.postcss).process(expected).css
   );
 
-  // Old interfaces: csswring.preserveHacks
+  // Old interfaces
   csswring.preserveHacks = true;
   test.strictEqual(
     csswring.wring(input).css,
@@ -137,13 +127,11 @@ exports['Option: removeAllComments'] = function (test) {
     map: true
   };
 
-  // csswring.wring()
   test.notStrictEqual(
     csswring.wring(input, opts).css,
     expected
   );
 
-  // csswring({ removeAllComments: true }).wring()
   test.strictEqual(
     csswring({
       removeAllComments: true
@@ -151,7 +139,7 @@ exports['Option: removeAllComments'] = function (test) {
     expected
   );
 
-  // Old interfaces: csswring.removeAllComments
+  // Old interfaces
   csswring.removeAllComments = true;
   test.strictEqual(
     csswring.wring(input, opts).css,
