@@ -30,11 +30,6 @@ exports.API = function (test) {
   );
 
   test.strictEqual(
-    postcss().use(require('../index').postcss).process(input).css,
-    expected
-  );
-
-  test.strictEqual(
     postcss().use(csswring().postcss).process(input).css,
     expected
   );
