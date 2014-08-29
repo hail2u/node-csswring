@@ -161,7 +161,8 @@ exports["Real CSS"] = function (test) {
   testCases.forEach(function (testCase) {
     test.strictEqual(
       csswring.wring(loadInput(testCase)).css,
-      loadExpected(testCase)
+      loadExpected(testCase),
+      testCase
     );
   });
 
