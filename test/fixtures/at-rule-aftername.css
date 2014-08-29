@@ -16,4 +16,5 @@
 @font-face
 {
   font-family: "Qux";
+  src: url("qux.woff") format("woff");
 }

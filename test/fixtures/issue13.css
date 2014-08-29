@@ -10,6 +10,7 @@
 }
 
 @font-face {
+  font-family: "f";
   src: url("f.eot#a") format("embedded-opentype"),
        url("f.woff") format("woff"),
        url("f.ttf") format("truetype"),
