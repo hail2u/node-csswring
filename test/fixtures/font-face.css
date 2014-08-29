@@ -9,7 +9,7 @@
   font-feature-settings: normal;
 }
 
-@font-face {
+@font-face{
   font-family: "Bar";
   src: url("bar.woff") format("woff");
   unicode-range: U+000000-10FFFF;
