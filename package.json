@@ -1,7 +1,7 @@
 {
   "name": "csswring",
   "description": "Minify CSS file with Source Maps. That's only.",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "homepage": "https://github.com/hail2u/node-csswring",
   "author": {
     "name": "Kyo Nagashima",
