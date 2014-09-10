@@ -1,1 +1,1 @@
-[bar="bar"],[baz*="baz"],[foo],[quux|=qu\]ux],[qux~='qu]x']{display:block}
+[bar=bar],[baz*=baz],[foo],[quux|="qu\]ux"],[qux~='qu]x']{display:block}
