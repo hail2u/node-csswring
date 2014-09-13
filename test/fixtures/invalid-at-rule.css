@@ -1,9 +1,7 @@
 /*! Special comment */
-.foo {
-  display: block;
-}
-
 @charset "UTF-8";
+
+@import "foo.css";
 
 .bar {
   display: block;
@@ -11,6 +9,8 @@
 
 @charset "EUC-JP";
 
-.baz {
+@import "baz.css";
+
+.qux {
   display: block;
 }
