@@ -119,7 +119,7 @@ exports['Option: removeAllComments'] = function (test) {
   var input = '/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
   var expected = '.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
   var opts= {
-    map: true
+    map: {inline: false}
   };
 
   test.notStrictEqual(
