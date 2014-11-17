@@ -122,6 +122,8 @@ This package also installs a command line interface.
           --remove-all-comments  Remove all comments.
       -h, --help                 Show this message.
       -v, --version              Print version information.
+    
+    Use a single dash for INPUT to read input from standard input.
 
 
 MINIFICATIONS
