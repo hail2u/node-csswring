@@ -65,7 +65,9 @@ PostCSS's `process()` method. This is useful for generating Source Map.
     
     var css = fs.readFileSync('from.css', 'utf8');
     var result = csswring.wring(css, {
-      map: true,
+      map: {
+        inline: false
+      },
       from: 'from.css',
       to: 'to.css'
     });
@@ -78,8 +80,6 @@ You can also merge CSSWring options mentioned above to the second argument:
 
     var result = csswring.wring(css, {
       map: true,
-      from: 'from.css',
-      to: 'to.css',
       preserveHacks: true
     });
 
