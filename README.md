@@ -110,8 +110,7 @@ CLI USAGE
 This package also installs a command line interface.
 
     $ node ./node_modules/.bin/csswring --help
-    Usage:
-      csswring [options] INPUT [OUTPUT]
+    Usage: csswring [options] INPUT [OUTPUT]
     
     Description:
       Minify CSS file with Source Maps. That's only.
