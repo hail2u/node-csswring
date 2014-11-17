@@ -1,9 +1,9 @@
 CSSWring
 ========
 
-Minify CSS file with Source Maps. That's only.
+Minify CSS file with source maps. That's only.
 
-Written with [PostCSS][1]. See also [grunt-csswring][2] by [@princed][3].
+Written with [PostCSS]. See also [grunt-csswring] by [@princed].
 
 
 INSTALLATION
@@ -29,7 +29,7 @@ QUICK USAGE
 OPTIONS
 -------
 
-### `preserveHacks`
+### preserveHacks
 
 By default, CSSWring removes all unknown portion of CSS declaration that
 includes some CSS hacks (e.g., underscore hacks and star hacks). If you want to
@@ -40,7 +40,7 @@ preserve these hacks, pass `preserveHacks: true` to this module.
     }).wring(css);
 
 
-### `removeAllComments`
+### removeAllComments
 
 By default, CSSWring keeps a comment that start with `/*!`. If you want to
 remove all comments, pass `removeAllComments: true` to this module.
@@ -55,10 +55,10 @@ API
 
 ### wring(css, [options])
 
-Wring `css`.
+Wring `css` with specified `options`.
 
 The second argument is optional. The `options` is same as the second argument of
-PostCSS's `process()` method. This is useful for generating Source Map.
+PostCSS's `process()` method. This is useful for generating source map.
 
     var fs = require('fs');
     var csswring = require('csswring');
@@ -74,7 +74,7 @@ PostCSS's `process()` method. This is useful for generating Source Map.
     fs.writeFileSync('to.css', result.css);
     fs.writeFileSync('to.css.map', result.map);
 
-See also [PostCSS document][4] for more about this `options`.
+See also [Source Map section] in PostCSS document for more about this `options`.
 
 You can also merge CSSWring options mentioned above to the second argument:
 
@@ -86,10 +86,10 @@ You can also merge CSSWring options mentioned above to the second argument:
 
 ### postcss
 
-Returns a [PostCSS processor][5].
+Returns a [PostCSS processor].
 
-You can use this property for combining with other PostCSS processors
-such as [Autoprefixer][6].
+You can use this property for combining with other PostCSS processors such as
+[Autoprefixer].
 
     var fs = require('fs');
     var postcss = require('postcss');
@@ -113,7 +113,7 @@ This package also installs a command line interface.
     Usage: csswring [options] INPUT [OUTPUT]
     
     Description:
-      Minify CSS file with Source Maps. That's only.
+      Minify CSS file with source maps. That's only.
     
     Options:
           --sourcemap            Create source map file.
@@ -129,7 +129,7 @@ MINIFICATIONS
 -------------
 
 CSSWring doesn't remove only white spaces or comments, but also remove an
-unnecessary parts of CSS. See minification details in [our GitHub Wiki][7].
+unnecessary parts of CSS. See minification details in [out GitHub Wiki].
 
 
 LICENSE
@@ -138,10 +138,10 @@ LICENSE
 MIT: http://hail2u.mit-license.org/2014
 
 
-[1]: https://github.com/postcss/postcss
-[2]: https://github.com/princed/grunt-csswring
-[3]: https://github.com/princed
-[4]: https://github.com/postcss/postcss#source-map-1
-[5]: https://github.com/postcss/postcss#processor
-[6]: https://github.com/postcss/autoprefixer
-[7]: https://github.com/hail2u/node-csswring/wiki
+[PostCSS]: https://github.com/postcss/postcss
+[grunt-csswring]: https://github.com/princed/grunt-csswring
+[@princed]: https://github.com/princed
+[Source Map section]: https://github.com/postcss/postcss#source-map-1
+[PostCSS processor]: https://github.com/postcss/postcss#processor
+[Autoprefixer]: https://github.com/postcss/autoprefixer
+[our GitHub Wiki]: https://github.com/hail2u/node-csswring/wiki
