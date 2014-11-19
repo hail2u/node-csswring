@@ -49,22 +49,22 @@ if (process.argv.length === 2) {
 
 var argv = minimist(process.argv.slice(2), {
   boolean: [
-    'sourcemap',
+    'help',
     'preserve-hacks',
     'remove-all-comments',
-    'help',
+    'sourcemap',
     'version'
   ],
   alias: {
-    h: 'help',
-    v: 'version'
+    'h': 'help',
+    'v': 'version'
   },
   default: {
-    sourcemap: false,
+    'help': false,
     'preserve-hacks': false,
     'remove-all-comments': false,
-    help: false,
-    version: false
+    'sourcemap': false,
+    'version': false
   }
 });
 
