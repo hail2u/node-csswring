@@ -9,7 +9,7 @@ var path = require('path');
 var pkg = require('../package.json');
 var csswring = require('../index');
 
-var _showHelp = function () {
+var showHelp = function () {
   console.log('Usage: csswring [options] INPUT [OUTPUT]');
   console.log('');
   console.log('Description:');
@@ -25,7 +25,7 @@ var _showHelp = function () {
   console.log('Use a single dash for INPUT to read input from standard input.');
 };
 
-var _wring = function (css, conf, opts) {
+var wring = function (css, conf, opts) {
   var wringed = csswring(conf).wring(css, opts);
 
   if (!opts.to) {
@@ -42,7 +42,7 @@ var _wring = function (css, conf, opts) {
 };
 
 if (process.argv.length === 2) {
-  _showHelp();
+  showHelp();
 
   return;
 }
@@ -75,7 +75,7 @@ switch (true) {
     break;
 
   case argv.help:
-    _showHelp();
+    showHelp();
 
     break;
 
@@ -111,7 +111,7 @@ switch (true) {
 
     if (opts.from !== '-') {
       css = fs.readFileSync(opts.from, 'utf8');
-      _wring(css, conf, opts);
+      wring(css, conf, opts);
     } else {
       delete opts.from;
       var stdin = process.openStdin();
@@ -120,7 +120,7 @@ switch (true) {
         css += chunk;
       });
       stdin.on('end', function() {
-        _wring(css, conf, opts);
+        wring(css, conf, opts);
       });
     }
 }
