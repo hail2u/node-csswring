@@ -25,19 +25,19 @@ var showHelp = function () {
   console.log('Use a single dash for INPUT to read input from standard input.');
 };
 
-var wring = function (css, conf, opts) {
-  var wringed = csswring(conf).wring(css, opts);
+var wring = function (css, options) {
+  var wringed = csswring(options.csswring).wring(css, options.postcss);
 
-  if (!opts.to) {
+  if (!options.postcss.to) {
     process.stdout.write(wringed.css);
 
     return;
   }
 
-  fs.writeFileSync(opts.to, wringed.css);
+  fs.writeFileSync(options.postcss.to, wringed.css);
 
   if (wringed.map) {
-    fs.writeFileSync(opts.to + '.map', wringed.map);
+    fs.writeFileSync(options.postcss.to + '.map', wringed.map);
   }
 };
 
@@ -80,47 +80,49 @@ switch (true) {
     break;
 
   default:
-    var conf = {};
-    var opts = {};
+    var options = {
+      csswring: {},
+      postcss: {}
+    };
 
     if (argv['preserve-hacks']) {
-      conf.preserveHacks = true;
+      options.csswring.preserveHacks = true;
     }
 
     if (argv['remove-all-comments']) {
-      conf.removeAllComments = true;
+      options.csswring.removeAllComments = true;
     }
 
     if (argv.sourcemap) {
-      opts.map = true;
+      options.postcss.map = true;
     }
 
-    opts.from = argv._[0];
+    options.postcss.from = argv._[0];
 
     if (argv._[1]) {
-      opts.to = argv._[1];
+      options.postcss.to = argv._[1];
     }
 
-    if (opts.map && opts.to) {
-      opts.map = {
+    if (options.postcss.map && options.postcss.to) {
+      options.postcss.map = {
         inline: false
       };
     }
 
     var css = '';
 
-    if (opts.from !== '-') {
-      css = fs.readFileSync(opts.from, 'utf8');
-      wring(css, conf, opts);
+    if (options.postcss.from !== '-') {
+      css = fs.readFileSync(options.postcss.from, 'utf8');
+      wring(css, options);
     } else {
-      delete opts.from;
+      delete options.postcss.from;
       var stdin = process.openStdin();
       stdin.setEncoding('utf-8');
       stdin.on('data', function(chunk) {
         css += chunk;
       });
       stdin.on('end', function() {
-        wring(css, conf, opts);
+        wring(css, options);
       });
     }
 }
