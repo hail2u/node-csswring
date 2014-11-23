@@ -3,7 +3,7 @@ CSSWring
 
 Minify CSS file with source maps. That's only.
 
-Written with [PostCSS]. See also [grunt-csswring] by [@princed].
+Written with [PostCSS][1]. See also [grunt-csswring][2] by [@princed][3].
 
 
 INSTALLATION
@@ -74,7 +74,8 @@ PostCSS's `process()` method. This is useful for generating source map.
     fs.writeFileSync('to.css', result.css);
     fs.writeFileSync('to.css.map', result.map);
 
-See also [Source Map section] in PostCSS document for more about this `options`.
+See also [Source Map section][4] in PostCSS document for more about this
+`options`.
 
 You can also merge CSSWring options mentioned above to the second argument:
 
@@ -86,10 +87,10 @@ You can also merge CSSWring options mentioned above to the second argument:
 
 ### postcss
 
-Returns a [PostCSS processor].
+Returns a [PostCSS processor][5].
 
 You can use this property for combining with other PostCSS processors such as
-[Autoprefixer].
+[Autoprefixer][6].
 
     var fs = require('fs');
     var postcss = require('postcss');
@@ -129,7 +130,7 @@ MINIFICATIONS
 -------------
 
 CSSWring doesn't remove only white spaces or comments, but also remove an
-unnecessary parts of CSS. See minification details in [out GitHub Wiki].
+unnecessary parts of CSS. See minification details in [out GitHub Wiki][7].
 
 
 LICENSE
@@ -138,10 +139,10 @@ LICENSE
 MIT: http://hail2u.mit-license.org/2014
 
 
-[PostCSS]: https://github.com/postcss/postcss
-[grunt-csswring]: https://github.com/princed/grunt-csswring
-[@princed]: https://github.com/princed
-[Source Map section]: https://github.com/postcss/postcss#source-map-1
-[PostCSS processor]: https://github.com/postcss/postcss#processor
-[Autoprefixer]: https://github.com/postcss/autoprefixer
-[our GitHub Wiki]: https://github.com/hail2u/node-csswring/wiki
+[1]: https://github.com/postcss/postcss
+[2]: https://github.com/princed/grunt-csswring
+[3]: https://github.com/princed
+[4]: https://github.com/postcss/postcss#source-map-1
+[5]: https://github.com/postcss/postcss#processor
+[6]: https://github.com/postcss/autoprefixer-core
+[7]: https://github.com/hail2u/node-csswring/wiki
