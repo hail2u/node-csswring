@@ -46,12 +46,13 @@ exports.API = function (test) {
 exports['Option: PostCSS options'] = function (test) {
   test.expect(2);
 
-  var opts = {
-    map: true,
-    from: 'from.css',
-    to: 'to.css'
-  };
   var input = '.foo{color:black}';
+  var opts = {
+    from: 'from.css',
+    map: {
+      inline: false
+    }
+  };
   var processed = csswring.wring(input, opts);
   var expected = postcss().process(input, opts);
 
