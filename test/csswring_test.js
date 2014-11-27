@@ -10,9 +10,7 @@ exports.API = function (test) {
   test.expect(5);
 
   var input = '.foo{color:black}';
-  var expected = postcss().process(input, {
-    from: 'from.css'
-  }).css;
+  var expected = postcss().process(input).css;
 
   test.strictEqual(
     csswring.wring(input).css,
@@ -72,7 +70,6 @@ exports['Option: PostCSS options'] = function (test) {
 exports['Option: preserveHacks'] = function (test) {
   test.expect(5);
 
-  var testCase = 'preserve-hacks';
   var input = '.hacks{*color:black;_background:white;font-size/**/:big}';
   var expected = '.hacks{*color:black;_background:white;font-size/**/:big}';
   var opts = {
@@ -116,11 +113,12 @@ exports['Option: preserveHacks'] = function (test) {
 exports['Option: removeAllComments'] = function (test) {
   test.expect(3);
 
-  var testCase = 'remove-all-comments';
   var input = '/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
   var expected = '.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
   var opts= {
-    map: {inline: false}
+    map: {
+      inline: false
+    }
   };
 
   test.notStrictEqual(
