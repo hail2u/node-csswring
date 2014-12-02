@@ -6,7 +6,7 @@ var postcss = require('postcss');
 
 var csswring = require('../index');
 
-exports.API = function (test) {
+exports['Public API'] = function (test) {
   test.expect(5);
 
   var input = '.foo{color:black}';
