@@ -26,6 +26,13 @@ QUICK USAGE
     fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
 
+MINIFICATIONS
+-------------
+
+CSSWring doesn't remove only white spaces or comments, but also remove an
+unnecessary parts of CSS. See [minification details][7] in our GitHub Wiki.
+
+
 OPTIONS
 -------
 
@@ -124,13 +131,6 @@ This package also installs a command line interface.
       -v, --version              Print version information.
     
     Use a single dash for INPUT to read input from standard input.
-
-
-MINIFICATIONS
--------------
-
-CSSWring doesn't remove only white spaces or comments, but also remove an
-unnecessary parts of CSS. See minification details in [out GitHub Wiki][7].
 
 
 LICENSE
