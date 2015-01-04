@@ -3,7 +3,7 @@ CSSWring
 
 Minify CSS file with source maps. That's only.
 
-Written with [PostCSS][1]. See also [grunt-csswring][2] by [@princed][3].
+Written with [PostCSS][1].
 
 
 INSTALLATION
@@ -30,7 +30,7 @@ MINIFICATIONS
 -------------
 
 CSSWring doesn't remove only white spaces or comments, but also remove an
-unnecessary parts of CSS. See [minification details][7] in our GitHub Wiki.
+unnecessary parts of CSS. See [minification details][2] in our GitHub Wiki.
 
 
 OPTIONS
@@ -81,7 +81,7 @@ PostCSS's `process()` method. This is useful for generating source map.
     fs.writeFileSync('to.css', result.css);
     fs.writeFileSync('to.css.map', result.map);
 
-See also [Source Map section][4] in PostCSS document for more about this
+See also [Source Map section][3] in PostCSS document for more about this
 `options`.
 
 You can also merge CSSWring options mentioned above to the second argument:
@@ -94,10 +94,10 @@ You can also merge CSSWring options mentioned above to the second argument:
 
 ### postcss
 
-Returns a [PostCSS processor][5].
+Returns a [PostCSS processor][4].
 
-You can use this property for combining with other PostCSS processors such as
-[Autoprefixer][6].
+You can use this property for combining with other PostCSS processors/plugins
+such as [Autoprefixer][5] or [postcss-url][6].
 
     var fs = require('fs');
     var postcss = require('postcss');
@@ -130,7 +130,7 @@ This package also installs a command line interface.
       -h, --help                 Show this message.
       -v, --version              Print version information.
     
-    Use a single dash for INPUT to read input from standard input.
+    Use a single dash for INPUT to read CSS from standard input.
 
 
 LICENSE
@@ -140,9 +140,8 @@ MIT: http://hail2u.mit-license.org/2014
 
 
 [1]: https://github.com/postcss/postcss
-[2]: https://github.com/princed/grunt-csswring
-[3]: https://github.com/princed
-[4]: https://github.com/postcss/postcss#source-map-1
-[5]: https://github.com/postcss/postcss#processor
-[6]: https://github.com/postcss/autoprefixer-core
-[7]: https://github.com/hail2u/node-csswring/wiki
+[2]: https://github.com/hail2u/node-csswring/wiki
+[3]: https://github.com/postcss/postcss#source-map-1
+[4]: https://github.com/postcss/postcss#processor
+[5]: https://github.com/postcss/autoprefixer-core
+[6]: https://github.com/postcss/postcss-url

@@ -22,7 +22,7 @@ var showHelp = function () {
   console.log('  -h, --help                 Show this message.');
   console.log('  -v, --version              Print version information.');
   console.log('');
-  console.log('Use a single dash for INPUT to read input from standard input.');
+  console.log('Use a single dash for INPUT to read CSS from standard input.');
 };
 
 var wring = function (css, options) {
