@@ -135,6 +135,8 @@ exports["Real CSS"] = function (test) {
     return fs.readFileSync(file, 'utf8');
   };
 
+  test.expect(testCases.length);
+
   testCases.forEach(function (testCase) {
     test.strictEqual(
       csswring.wring(loadInput(testCase)).css,
