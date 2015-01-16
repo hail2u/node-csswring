@@ -26,7 +26,8 @@
     "sourcemap",
     "source",
     "map",
-    "postcss"
+    "postcss",
+    "gruntplugin"
   ],
   "license": {
     "type": "MIT",
