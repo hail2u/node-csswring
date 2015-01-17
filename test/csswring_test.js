@@ -132,7 +132,7 @@ exports["Real CSS"] = function (test) {
   var loadExpected = function (file) {
     file = path.join(__dirname, 'expected', file);
 
-    return fs.readFileSync(file, 'utf8');
+    return fs.readFileSync(file, 'utf8').trim();
   };
 
   test.expect(testCases.length);
