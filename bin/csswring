@@ -23,6 +23,8 @@ var showHelp = function () {
   console.log('  -v, --version              Print version information.');
   console.log('');
   console.log('Use a single dash for INPUT to read CSS from standard input.');
+
+  return;
 };
 
 var wring = function (css, options) {
@@ -40,12 +42,6 @@ var wring = function (css, options) {
     fs.writeFileSync(options.postcss.to + '.map', wringed.map);
   }
 };
-
-if (process.argv.length === 2) {
-  showHelp();
-
-  return;
-}
 
 var argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -67,6 +63,10 @@ var argv = minimist(process.argv.slice(2), {
     'version': false
   }
 });
+
+if (process.argv.length === 2) {
+  argv.help = true;
+}
 
 switch (true) {
   case argv.version:
