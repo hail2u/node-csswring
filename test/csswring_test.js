@@ -101,7 +101,7 @@ exports['Option: removeAllComments'] = function (test) {
 
   var input = '/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
   var expected = '.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
-  var opts= {
+  var opts = {
     map: {
       inline: false
     }
@@ -122,7 +122,7 @@ exports['Option: removeAllComments'] = function (test) {
   test.done();
 };
 
-exports["Real CSS"] = function (test) {
+exports['Real CSS'] = function (test) {
   var testCases = fs.readdirSync(path.join(__dirname, 'fixtures'));
   var loadInput = function (file) {
     file = path.join(__dirname, 'fixtures', file);

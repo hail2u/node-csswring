@@ -2,12 +2,10 @@
 
 'use strict';
 
+var csswring = require('../index');
 var fs = require('fs');
 var minimist = require('minimist');
-var path = require('path');
-
 var pkg = require('../package.json');
-var csswring = require('../index');
 
 var showHelp = function () {
   console.log('Usage: csswring [options] INPUT [OUTPUT]');
@@ -26,23 +24,21 @@ var showHelp = function () {
 
   return;
 };
+var wring = function (s, o) {
+  var wringed = csswring(o.csswring).wring(s, o.postcss);
 
-var wring = function (css, options) {
-  var wringed = csswring(options.csswring).wring(css, options.postcss);
-
-  if (!options.postcss.to) {
+  if (!o.postcss.to) {
     process.stdout.write(wringed.css);
 
     return;
   }
 
-  fs.writeFileSync(options.postcss.to, wringed.css);
+  fs.writeFileSync(o.postcss.to, wringed.css);
 
   if (wringed.map) {
-    fs.writeFileSync(options.postcss.to + '.map', wringed.map);
+    fs.writeFileSync(o.postcss.to + '.map', wringed.map);
   }
 };
-
 var argv = minimist(process.argv.slice(2), {
   boolean: [
     'help',
@@ -64,7 +60,7 @@ var argv = minimist(process.argv.slice(2), {
   }
 });
 
-if (process.argv.length === 2) {
+if (argv._.length < 1) {
   argv.help = true;
 }
 
