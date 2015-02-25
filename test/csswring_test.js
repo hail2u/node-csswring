@@ -90,7 +90,7 @@ exports['Option: preserveHacks'] = function (test) {
 
   test.notStrictEqual(
     postcss().use(a.postcss).process(input).css,
-    postcss().use(b.postcss).process(expected).css
+    postcss().use(b.postcss).process(input).css
   );
 
   test.done();
