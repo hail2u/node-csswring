@@ -133,6 +133,42 @@ This package also installs a command line interface.
     Use a single dash for INPUT to read CSS from standard input.
 
 
+GRUNT PLUGIN USAGE
+------------------
+
+This package also installs a Grunt plugin. You can enable this plugin in
+`Gruntfile.js` of your project like that:
+
+    grunt.loadNpmTasks('csswring');
+
+This was not tested. I suggest using [`grunt-postcss`][7].
+
+
+### Example Config
+
+To minify `src/css/**/*.css` to `build/css/**/*.min.css` with source map:
+
+    grunt.initConfig({
+      csswring: {
+        options: {
+          map: true
+        },
+    
+        main: {
+          cwd: 'src/css/',
+          dest: 'build/css/',
+          expand: true,
+          ext: 'min.css',
+          src: [
+            '**/*.css'
+          ]
+        }
+      }
+    });
+
+The `options` is completely same as [this package options][8].
+
+
 LICENSE
 -------
 
@@ -145,3 +181,5 @@ MIT: http://hail2u.mit-license.org/2014
 [4]: https://github.com/postcss/postcss#processor
 [5]: https://github.com/postcss/autoprefixer-core
 [6]: https://github.com/postcss/postcss-url
+[7]: https://github.com/nDmitry/grunt-postcss
+[8]: #options
