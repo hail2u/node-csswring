@@ -10,10 +10,10 @@
     "url": "https://github.com/hail2u/node-csswring/issues"
   },
   "dependencies": {
-    "fs-extra": "^0.16.0",
+    "fs-extra": "^0.18.0",
     "minimist": "^1.1.0",
     "onecolor": "^2.4.0",
-    "postcss": "^4.0.0"
+    "postcss": "^4.1.0"
   },
   "devDependencies": {
     "nodeunit": "^0.9.0"
