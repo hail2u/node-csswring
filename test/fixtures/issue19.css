@@ -1,5 +1,5 @@
 @media /* a */ (min-width: 99px) {
-    .issue19 /* b */, #issue19   {
+    .foo /* b */, .bar   {
     display: auto    
         ;
   }
