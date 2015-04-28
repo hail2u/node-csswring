@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-var fs = require('fs');
-var path = require('path');
-var postcss = require('postcss');
+var fs = require("fs");
+var path = require("path");
+var postcss = require("postcss");
 
-var csswring = require('../index');
+var csswring = require("../index");
 
-exports['Public API'] = function (test) {
+exports["Public API"] = function (test) {
   var expected;
-  var input = '.foo{color:black}';
+  var input = ".foo{color:black}";
   expected = postcss().process(input).css;
 
   test.expect(4);
@@ -36,11 +36,11 @@ exports['Public API'] = function (test) {
   test.done();
 };
 
-exports['Option: PostCSS options'] = function (test) {
+exports["Option: PostCSS options"] = function (test) {
   var expected;
-  var input = '.foo{color:black}';
+  var input = ".foo{color:black}";
   var opts = {
-    from: 'from.css',
+    from: "from.css",
     map: {
       inline: false
     }
@@ -63,11 +63,11 @@ exports['Option: PostCSS options'] = function (test) {
   test.done();
 };
 
-exports['Option: preserveHacks'] = function (test) {
+exports["Option: preserveHacks"] = function (test) {
   var a;
   var b = csswring();
-  var expected = '.hacks{*color:black;_background:white;font-size/**/:big}';
-  var input = '.hacks{*color:black;_background:white;font-size/**/:big}';
+  var expected = ".hacks{*color:black;_background:white;font-size/**/:big}";
+  var input = ".hacks{*color:black;_background:white;font-size/**/:big}";
   var opts = {
     preserveHacks: true
   };
@@ -98,9 +98,9 @@ exports['Option: preserveHacks'] = function (test) {
   test.done();
 };
 
-exports['Option: removeAllComments'] = function (test) {
-  var expected = '.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
-  var input = '/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */';
+exports["Option: removeAllComments"] = function (test) {
+  var expected = ".foo{display:block}\n/*# sourceMappingURL=to.css.map */";
+  var input = "/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */";
   var opts = {
     map: {
       inline: false
@@ -124,19 +124,19 @@ exports['Option: removeAllComments'] = function (test) {
   test.done();
 };
 
-exports['Real CSS'] = function (test) {
-  var testCases = fs.readdirSync(path.join(__dirname, 'fixtures'));
+exports["Real CSS"] = function (test) {
+  var testCases = fs.readdirSync(path.join(__dirname, "fixtures"));
 
   var loadExpected = function (file) {
-    file = path.join(__dirname, 'expected', file);
+    file = path.join(__dirname, "expected", file);
 
-    return fs.readFileSync(file, 'utf8').trim();
+    return fs.readFileSync(file, "utf8").trim();
   };
 
   var loadInput = function (file) {
-    file = path.join(__dirname, 'fixtures', file);
+    file = path.join(__dirname, "fixtures", file);
 
-    return fs.readFileSync(file, 'utf8');
+    return fs.readFileSync(file, "utf8");
   };
 
   test.expect(testCases.length);
