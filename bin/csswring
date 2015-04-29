@@ -76,10 +76,12 @@ switch (true) {
     break;
 
   default:
+    var css = "";
     var options = {
       csswring: {},
       postcss: {}
     };
+    var stdin;
 
     if (argv["preserve-hacks"]) {
       options.csswring.preserveHacks = true;
@@ -105,14 +107,12 @@ switch (true) {
       };
     }
 
-    var css = "";
-
     if (options.postcss.from !== "-") {
       css = fs.readFileSync(options.postcss.from, "utf8");
       wring(css, options);
     } else {
       delete options.postcss.from;
-      var stdin = process.openStdin();
+      stdin = process.openStdin();
       stdin.setEncoding("utf-8");
       stdin.on("data", function (chunk) {
         css += chunk;
