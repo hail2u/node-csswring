@@ -132,6 +132,9 @@ This package also installs a command line interface.
     
     Use a single dash for INPUT to read CSS from standard input.
 
+When PostCSS failed to parse INPUT, CLI shows a CSS parse error in GNU error
+format instead of Node.js stack trace.
+
 
 GRUNT PLUGIN USAGE
 ------------------
