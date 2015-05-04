@@ -6,8 +6,30 @@ Minify CSS file with source maps. That's only.
 Written with [PostCSS][1].
 
 
-INSTALLATION
-------------
+SYNOPSIS
+--------
+
+For readability, almost all CSS file contains a lot of white spaces, extra
+semicolon, etc.:
+
+    .foo {
+      color: black;
+    }
+    
+    .bar {
+      margin-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0;
+    }
+
+This PostCSS plugin removes non-essential part of CSS like this:
+
+    .foo{color:black}.bar{margin:0 auto}
+
+
+INSTALL
+-------
 
     $ npm install csswring
 
