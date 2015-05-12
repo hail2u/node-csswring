@@ -23,7 +23,7 @@ semicolon, etc.:
       margin-top: 0;
     }
 
-This PostCSS plugin removes non-essential part of CSS like this:
+This PostCSS plugin removes these non-essential parts of CSS file, like this:
 
     .foo{color:black}.bar{margin:0 auto}
 
@@ -48,7 +48,7 @@ USAGE
     fs.writeFileSync('test.min.css', csswring.wring(css).css);
 
 
-### As PostCSS plugin
+### As PostCSS Plugin
 
     'use strict';
     
