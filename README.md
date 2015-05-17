@@ -58,7 +58,7 @@ USAGE
     var css = fs.readFileSync('test.css', 'utf8');
     fs.writeFileSync('test.min.css', postcss([
       require('autoprefixer-core'),
-      require('csswring');
+      require('csswring')
     ]).css);
 
 
