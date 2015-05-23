@@ -39,26 +39,26 @@ USAGE
 
     #!/usr/bin/env node
     
-    'use strict';
+    "use strict";
     
-    var fs = require('fs');
-    var csswring = require('csswring');
+    var fs = require("fs");
+    var csswring = require("csswring");
     
-    var css = fs.readFileSync('test.css', 'utf8');
-    fs.writeFileSync('test.min.css', csswring.wring(css).css);
+    var css = fs.readFileSync("test.css", "utf8");
+    fs.writeFileSync("test.min.css", csswring.wring(css).css);
 
 
 ### As PostCSS Plugin
 
-    'use strict';
+    "use strict";
     
-    var fs = require('fs');
-    var postcss = require('postcss');
+    var fs = require("fs");
+    var postcss = require("postcss");
     
-    var css = fs.readFileSync('test.css', 'utf8');
-    fs.writeFileSync('test.min.css', postcss([
-      require('autoprefixer-core'),
-      require('csswring')
+    var css = fs.readFileSync("test.css", "utf8");
+    fs.writeFileSync("test.min.css", postcss([
+      require("autoprefixer-core"),
+      require("csswring")
     ]).css);
 
 
@@ -90,7 +90,7 @@ format instead of Node.js stack trace.
 This package also installs a Grunt plugin. You can enable this plugin in
 `Gruntfile.js` of your project like that:
 
-    grunt.loadNpmTasks('csswring');
+    grunt.loadNpmTasks("csswring");
 
 To minify `src/css/**/*.css` to `build/css/**/*.min.css` with source map:
 
@@ -101,27 +101,27 @@ To minify `src/css/**/*.css` to `build/css/**/*.min.css` with source map:
         },
     
         main: {
-          cwd: 'src/css/',
-          dest: 'build/css/',
+          cwd: "src/css/",
+          dest: "build/css/",
           expand: true,
-          ext: 'min.css',
+          ext: "min.css",
           src: [
-            '**/*.css'
+            "**/*.css"
           ]
         }
       }
     });
 
-The `options` is completely same as [this package options][8].
+The `options` is completely same as [this package options][2].
 
-This was not tested. I suggest using [`grunt-postcss`][7].
+This was not tested. I suggest using [`grunt-postcss`][3].
 
 
 MINIFICATIONS
 -------------
 
 CSSWring doesn't remove only white spaces or comments, but also remove an
-unnecessary parts of CSS. See [minification details][2] in our GitHub Wiki.
+unnecessary parts of CSS. See [minification details][4] in our GitHub Wiki.
 
 
 OPTIONS
@@ -158,21 +158,21 @@ Wring `css` with specified `options`.
 The second argument is optional. The `options` is same as the second argument of
 PostCSS's `process()` method. This is useful for generating source map.
 
-    var fs = require('fs');
-    var csswring = require('csswring');
+    var fs = require("fs");
+    var csswring = require("csswring");
     
-    var css = fs.readFileSync('from.css', 'utf8');
+    var css = fs.readFileSync("from.css", "utf8");
     var result = csswring.wring(css, {
       map: {
         inline: false
       },
-      from: 'from.css',
-      to: 'to.css'
+      from: "from.css",
+      to: "to.css"
     });
-    fs.writeFileSync('to.css', result.css);
-    fs.writeFileSync('to.css.map', result.map);
+    fs.writeFileSync("to.css", result.css);
+    fs.writeFileSync("to.css.map", result.map);
 
-See also [Source Map section][3] in PostCSS document for more about this
+See also [Source Map section][5] in PostCSS document for more about this
 `options`.
 
 You can also merge CSSWring options mentioned above to the second argument:
@@ -185,17 +185,17 @@ You can also merge CSSWring options mentioned above to the second argument:
 
 ### postcss
 
-Returns a [PostCSS processor][4].
+Returns a PostCSS processor for backwards compatibility.
 
 You can use this property for combining with other PostCSS processors/plugins
-such as [Autoprefixer][5] or [postcss-url][6].
+such as [Autoprefixer][6] or [postcss-url][7].
 
-    var fs = require('fs');
-    var postcss = require('postcss');
-    var autoprefixer = require('autoprefixer');
-    var csswring = require('csswring');
+    var fs = require("fs");
+    var postcss = require("postcss");
+    var autoprefixer = require("autoprefixer");
+    var csswring = require("csswring");
     
-    var css = fs.readFileSync('test.css', 'utf8');
+    var css = fs.readFileSync("test.css", "utf8");
     postcss().use(
       autoprefixer.postcss
     ).use(
@@ -210,10 +210,9 @@ MIT: http://hail2u.mit-license.org/2014
 
 
 [1]: https://github.com/postcss/postcss
-[2]: https://github.com/hail2u/node-csswring/wiki
-[3]: https://github.com/postcss/postcss#source-map-1
-[4]: https://github.com/postcss/postcss#processor
-[5]: https://github.com/postcss/autoprefixer-core
-[6]: https://github.com/postcss/postcss-url
-[7]: https://github.com/nDmitry/grunt-postcss
-[8]: #options
+[2]: #options
+[3]: https://github.com/nDmitry/grunt-postcss
+[4]: https://github.com/hail2u/node-csswring/wiki
+[5]: https://github.com/postcss/postcss#source-map
+[6]: https://github.com/postcss/autoprefixer-core
+[7]: https://github.com/postcss/postcss-url
