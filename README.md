@@ -1,7 +1,7 @@
 CSSWring
 ========
 
-Minify CSS file with source maps. That's only.
+Minify CSS file with source maps. That’s only.
 
 Written with [PostCSS][1].
 
@@ -76,7 +76,7 @@ This package also installs a command line interface.
     Usage: csswring [options] INPUT [OUTPUT]
     
     Description:
-      Minify CSS file with source maps. That's only.
+      Minify CSS file with source maps. That’s only.
     
     Options:
           --sourcemap            Create source map file.
@@ -126,7 +126,7 @@ This was not tested. I suggest using [`grunt-postcss`][3].
 MINIFICATIONS
 -------------
 
-CSSWring doesn't remove only white spaces or comments, but also remove an
+CSSWring doesn’t remove only white spaces or comments, but also remove an
 unnecessary parts of CSS. See [minification details][4] in our GitHub Wiki.
 
 
@@ -162,7 +162,7 @@ API
 Wring `css` with specified `options`.
 
 The second argument is optional. The `options` is same as the second argument of
-PostCSS's `process()` method. This is useful for generating source map.
+PostCSS’s `process()` method. This is useful for generating source map.
 
     var fs = require("fs");
     var csswring = require("csswring");
