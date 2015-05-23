@@ -37,6 +37,26 @@ INSTALL
 USAGE
 -----
 
+Of course, this package can be used as PostCSS plugin:
+
+    "use strict";
+    
+    var fs = require("fs");
+    var postcss = require("postcss");
+    
+    var css = fs.readFileSync("test.css", "utf8");
+    postcss([
+      require("autoprefixer-core")(),
+      require("csswring")()
+    ]).process(css).then(function (result) {
+      fs.writeFileSync("test.min.css", result.css);
+    });
+
+
+### As standard Node.js package
+
+To minify `test.css` to `test.min.css`:
+
     #!/usr/bin/env node
     
     "use strict";
@@ -46,20 +66,6 @@ USAGE
     
     var css = fs.readFileSync("test.css", "utf8");
     fs.writeFileSync("test.min.css", csswring.wring(css).css);
-
-
-### As PostCSS Plugin
-
-    "use strict";
-    
-    var fs = require("fs");
-    var postcss = require("postcss");
-    
-    var css = fs.readFileSync("test.css", "utf8");
-    fs.writeFileSync("test.min.css", postcss([
-      require("autoprefixer-core"),
-      require("csswring")
-    ]).css);
 
 
 ## As CLI Program
