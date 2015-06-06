@@ -30,12 +30,10 @@
   "homepage": "https://github.com/hail2u/node-csswring",
   "keywords": [
     "css",
-    "minifier",
     "minification",
-    "sourcemap",
     "source",
     "map",
-    "postcss",
+    "postcss-plugin",
     "gruntplugin"
   ],
   "license": "MIT",
