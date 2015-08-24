@@ -26,7 +26,7 @@ var showHelp = function () {
   return;
 };
 var wring = function (s, o) {
-  csswring.wring(s, o.postcss).then(function (result) {
+  csswring.wring(s, o).then(function (result) {
     if (!o.to) {
       process.stdout.write(result.css);
 
