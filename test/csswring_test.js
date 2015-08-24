@@ -11,7 +11,7 @@ exports["Public API"] = function (test) {
   var input = ".foo{color:black}";
   expected = postcss().process(input).css;
 
-  test.expect(2);
+  test.expect(4);
 
   test.strictEqual(
     csswring.wring(input).css,
@@ -19,9 +19,17 @@ exports["Public API"] = function (test) {
   );
 
   test.strictEqual(
-    postcss([
-      csswring()
-    ]).process(input).css,
+    csswring().wring(input).css,
+    expected
+  );
+
+  test.strictEqual(
+    postcss().use(csswring.postcss).process(input).css,
+    expected
+  );
+
+  test.strictEqual(
+    postcss().use(csswring().postcss).process(input).css,
     expected
   );
 
@@ -56,16 +64,24 @@ exports["Option: PostCSS options"] = function (test) {
 };
 
 exports["Option: preserveHacks"] = function (test) {
+  var a;
+  var b = csswring();
   var expected = ".hacks{*color:black;_background:white;font-size/**/:big}";
   var input = ".hacks{*color:black;_background:white;font-size/**/:big}";
   var opts = {
     preserveHacks: true
   };
+  a = csswring(opts);
 
-  test.expect(3);
+  test.expect(4);
 
   test.notStrictEqual(
     csswring.wring(input).css,
+    expected
+  );
+
+  test.strictEqual(
+    csswring(opts).wring(input).css,
     expected
   );
 
@@ -75,8 +91,8 @@ exports["Option: preserveHacks"] = function (test) {
   );
 
   test.notStrictEqual(
-    postcss([csswring()]).process(input).css,
-    postcss([csswring(opts)]).process(input).css
+    postcss().use(a.postcss).process(input).css,
+    postcss().use(b.postcss).process(input).css
   );
 
   test.done();
@@ -91,22 +107,18 @@ exports["Option: removeAllComments"] = function (test) {
     }
   };
 
-  test.expect(3);
+  test.expect(2);
 
   test.notStrictEqual(
     csswring.wring(input, opts).css,
     expected
   );
 
-  opts.removeAllComments = true;
   test.strictEqual(
-    csswring.wring(input, opts).css,
+    csswring({
+      removeAllComments: true
+    }).wring(input, opts).css,
     expected
-  );
-
-  test.notStrictEqual(
-    postcss([csswring()]).process(input).css,
-    postcss([csswring(opts)]).process(input).css
   );
 
   test.done();

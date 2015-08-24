@@ -139,11 +139,9 @@ By default, CSSWring removes all unknown portion of CSS declaration that
 includes some CSS hacks (e.g., underscore hacks and star hacks). If you want to
 preserve these hacks, pass `preserveHacks: true` to this module.
 
-    postcss([
-      csswring({
-        preserveHacks: true
-      })
-    ]).wring(css);
+    csswring({
+      preserveHacks: true
+    }).wring(css);
 
 
 ### removeAllComments
@@ -151,11 +149,9 @@ preserve these hacks, pass `preserveHacks: true` to this module.
 By default, CSSWring keeps a comment that start with `/*!`. If you want to
 remove all comments, pass `removeAllComments: true` to this module.
 
-    postcss([
-      csswring({
-        removeAllComments: true
-      })
-    ]).wring(css);
+    csswring({
+      removeAllComments: true
+    }).wring(css);
 
 
 API
@@ -193,6 +189,26 @@ You can also merge CSSWring options mentioned above to the second argument:
     });
 
 
+### postcss
+
+Returns a PostCSS processor for backwards compatibility.
+
+You can use this property for combining with other PostCSS processors/plugins
+such as [Autoprefixer][6] or [postcss-url][7].
+
+    var fs = require("fs");
+    var postcss = require("postcss");
+    var autoprefixer = require("autoprefixer");
+    var csswring = require("csswring");
+    
+    var css = fs.readFileSync("test.css", "utf8");
+    postcss().use(
+      autoprefixer.postcss
+    ).use(
+      csswring.postcss
+    ).process(css);
+
+
 LICENSE
 -------
 
@@ -204,3 +220,5 @@ MIT: http://hail2u.mit-license.org/2014
 [3]: https://github.com/nDmitry/grunt-postcss
 [4]: https://github.com/hail2u/node-csswring/wiki
 [5]: https://github.com/postcss/postcss#source-map
+[6]: https://github.com/postcss/autoprefixer-core
+[7]: https://github.com/postcss/postcss-url
