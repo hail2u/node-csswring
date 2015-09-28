@@ -347,6 +347,10 @@ var wringDecl = function (preserveHacks, decl) {
     decl.raws.important = "!important";
   }
 
+  if (decl.raws.value) {
+    decl.raws.value = decl.raws.value.raw.trim();
+  }
+
   if (prop === "content") {
     return;
   }
