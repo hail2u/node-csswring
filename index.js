@@ -217,6 +217,9 @@ var wringSelector = function (selector) {
   ).replace(
     re.selectorCombinators,
     "$1"
+  ).replace(
+    re.selectorPseudoElements,
+    "$1"
   );
 };
 
