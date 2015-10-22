@@ -1,1 +1,1 @@
-.foo{border:0 solid red}
+.foo{border:0 solid red}.bar{width:calc(100% - 200px + 0%)}

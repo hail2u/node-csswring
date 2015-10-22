@@ -100,13 +100,14 @@ var toShortestColor = function (m, leading, r1, r2, g1, g2, b1, b2) {
 };
 
 // Remove unit from 0 length and 0 percentage if possible
-var removeUnitOfZero = function (prop, m, leading, num) {
+var removeUnitOfZero = function (prop, m, leading, num, unit, position, value) {
   if (
     prop === "flex" ||
     prop === "-ms-flex" ||
     prop === "-webkit-flex" ||
     prop === "flex-basis" ||
-    prop === "-webkit-flex-basis"
+    prop === "-webkit-flex-basis" ||
+    value.indexOf("calc") !== -1
   ) {
     return m;
   }
