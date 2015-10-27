@@ -1,11 +1,11 @@
 "use strict";
 
+var color = require("./lib/color");
 var list = require("postcss/lib/list");
 var onecolor = require("onecolor");
 var pkg = require("./package.json");
 var postcss = require("postcss");
 var re = require("./lib/regexp");
-var shortColors = require("./lib/color_keywords").short;
 
 // Check comment is a source map annotation or not
 var isSourceMapAnnotation = function (comment) {
@@ -68,35 +68,35 @@ var unquoteFontFamily = function (family) {
 };
 
 // Convert colors to HEX or `rgba()` notation
-var toRGBColor = function (m, leading, color) {
-  color = onecolor(color);
+var toRGBColor = function (m, leading, c) {
+  c = onecolor(c);
 
   /* istanbul ignore if  */
-  // Return unmodified value when `one.color` failed to parse `color`
-  if (!color) {
+  // Return unmodified value when `one.color` failed to parse `c`
+  if (!c) {
     return m;
   }
 
-  if (color.alpha() < 1) {
-    return leading + color.cssa();
+  if (c.alpha() < 1) {
+    return leading + c.cssa();
   }
 
-  return leading + color.hex() + " ";
+  return leading + c.hex() + " ";
 };
 
 // Convert to shortest color
 var toShortestColor = function (m, leading, r1, r2, g1, g2, b1, b2) {
-  var color = "#" + r1 + r2 + g1 + g2 + b1 + b2;
+  var c = "#" + r1 + r2 + g1 + g2 + b1 + b2;
 
   if (r1 === r2 && g1 === g2 && b1 === b2) {
-    color = "#" + r1 + g1 + b1;
+    c = "#" + r1 + g1 + b1;
   }
 
-  if (shortColors.hasOwnProperty(color)) {
-    color = shortColors[color];
+  if (color.shortest.hasOwnProperty(c)) {
+    c = color.shortest[c];
   }
 
-  return leading + color.toLowerCase();
+  return leading + c.toLowerCase();
 };
 
 // Remove unit from 0 length and 0 percentage if possible
