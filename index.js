@@ -325,12 +325,26 @@ var wringComment = function (removeAllComments, comment) {
 
 // Wring declaration
 var wringDecl = function (preserveHacks, decl) {
+  var before = decl.raws.before;
+  var between = decl.raws.between;
   var prop = decl.prop;
   var value = decl.value;
   var values;
 
-  if (preserveHacks && decl.raws.before) {
-    decl.raws.before = decl.raws.before.replace(
+  if (
+    !preserveHacks &&
+    (
+      (before && before.match(re.hackSignProp) !== null) ||
+      (between && between.match(re.hackPropComment) !== null)
+    )
+  ) {
+    decl.remove();
+
+    return;
+  }
+
+  if (preserveHacks && before) {
+    before = before.replace(
       re.semicolons,
       ""
     ).replace(
@@ -338,14 +352,18 @@ var wringDecl = function (preserveHacks, decl) {
       ""
     );
   } else {
-    decl.raws.before = "";
+    before = "";
   }
 
-  if (preserveHacks && decl.raws.between) {
-    decl.raws.between = decl.raws.between.replace(re.whiteSpaces, "");
+  decl.raws.before = before;
+
+  if (preserveHacks && between) {
+    between = between.replace(re.whiteSpaces, "");
   } else {
-    decl.raws.between = ":";
+    between = ":";
   }
+
+  decl.raws.between = between;
 
   if (decl.important) {
     decl.raws.important = "!important";
