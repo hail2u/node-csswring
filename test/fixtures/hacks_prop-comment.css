@@ -1,0 +1,5 @@
+.foo {
+  display: block;
+  display/**/: block;
+  display/*\**/: block\9;
+}

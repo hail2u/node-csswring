@@ -135,8 +135,14 @@ exports["Real CSS"] = function (test) {
   test.expect(testCases.length);
 
   testCases.forEach(function (testCase) {
+    var opts = {};
+
+    if (testCase.indexOf("hacks_") === 0) {
+      opts.preserveHacks = true;
+    }
+
     test.strictEqual(
-      csswring.wring(loadInput(testCase)).css,
+      csswring.wring(loadInput(testCase), opts).css,
       loadExpected(testCase),
       testCase
     );
