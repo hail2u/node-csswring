@@ -56,32 +56,29 @@ exports["Option: PostCSS options"] = function (test) {
 };
 
 exports["Option: preserveHacks"] = function (test) {
-  var expected = ".hacks{*color:black;_background:white;font-size/**/:big}";
-  var input = ".hacks{*color:black;_background:white;font-size/**/:big}";
+  var expected = ".hacks{_color:red}";
+  var input = expected;
   var opts = {
     preserveHacks: true
   };
 
-  test.expect(4);
-
-  test.notStrictEqual(
-    csswring.wring(input).css,
-    expected
-  );
+  test.expect(3);
 
   test.strictEqual(
     csswring.wring(input, opts).css,
     expected
   );
 
+  expected = postcss([csswring()]).process(input).css;
   test.notStrictEqual(
     postcss([csswring(opts)]).process(input).css,
-    postcss([csswring()]).process(input).css
+    expected
   );
 
+  expected = "";
   test.strictEqual(
-    postcss([csswring()]).process(input).css,
-    ""
+    csswring.wring(input).css,
+    expected
   );
 
   test.done();
@@ -93,25 +90,28 @@ exports["Option: removeAllComments"] = function (test) {
   var opts = {
     map: {
       inline: false
-    }
+    },
+    removeAllComments: true
   };
 
   test.expect(3);
 
-  test.notStrictEqual(
-    csswring.wring(input, opts).css,
-    expected
-  );
-
-  opts.removeAllComments = true;
   test.strictEqual(
     csswring.wring(input, opts).css,
     expected
   );
 
+  expected = postcss([csswring(opts)]).process(input).css;
   test.notStrictEqual(
     postcss([csswring()]).process(input).css,
-    postcss([csswring(opts)]).process(input).css
+    expected
+  );
+
+  opts.removeAllComments = false;
+  expected = input;
+  test.strictEqual(
+    csswring.wring(input, opts).css,
+    expected
   );
 
   test.done();
