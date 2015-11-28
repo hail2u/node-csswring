@@ -62,7 +62,7 @@ exports["Option: preserveHacks"] = function (test) {
     preserveHacks: true
   };
 
-  test.expect(3);
+  test.expect(4);
 
   test.notStrictEqual(
     csswring.wring(input).css,
@@ -75,8 +75,13 @@ exports["Option: preserveHacks"] = function (test) {
   );
 
   test.notStrictEqual(
+    postcss([csswring(opts)]).process(input).css,
+    postcss([csswring()]).process(input).css
+  );
+
+  test.strictEqual(
     postcss([csswring()]).process(input).css,
-    postcss([csswring(opts)]).process(input).css
+    ""
   );
 
   test.done();
