@@ -4,7 +4,7 @@
   "version": "4.1.0",
   "author": "Kyo Nagashima <hail2u@gmail.com> (https://kyonagashima.com/)",
   "bin": {
-    "csswring": "./bin/csswring"
+    "csswring": "./bin/csswring.js"
   },
   "bugs": {
     "url": "https://github.com/hail2u/node-csswring/issues"
