@@ -1,0 +1,7 @@
+.foo {
+  color: red;
+  _color: red;
+  *color: red;
+  !color: red;
+  colo!r: red;
+}

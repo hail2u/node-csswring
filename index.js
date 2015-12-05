@@ -331,6 +331,12 @@ var wringDecl = function (preserveHacks, decl) {
   var value = decl.value;
   var values;
 
+  if (!prop.match(re.validProp)) {
+    decl.remove();
+
+    return;
+  }
+
   if (
     !preserveHacks &&
     (
