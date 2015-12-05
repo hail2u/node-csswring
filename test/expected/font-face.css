@@ -1,1 +1,1 @@
-@font-face{font-family:Foo;src:url(foo.woff) format("woff")}@font-face{font-family:Bar;src:url(bar.woff) format("woff")}
+.foo{font-family:_a,serif}@font-face{font-family:_a;src:url(foo.woff) format("woff")}@font-face{font-family:_b;src:url(bar.woff) format("woff")}.bar{font-family:_b,Buz,serif}
