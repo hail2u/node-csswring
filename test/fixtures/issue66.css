@@ -1,0 +1,9 @@
+:root {
+  --foo: red;
+}
+
+.foo {
+  --bar: green;
+  color: var(--foo);
+  background-color: var(--bar);
+}
