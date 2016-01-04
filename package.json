@@ -27,11 +27,9 @@
   "homepage": "https://github.com/hail2u/node-csswring",
   "keywords": [
     "css",
+    "gruntplugin",
     "minification",
-    "source",
-    "map",
-    "postcss-plugin",
-    "gruntplugin"
+    "postcss-plugin"
   ],
   "license": "MIT",
   "main": "index.js",
