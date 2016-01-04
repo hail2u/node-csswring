@@ -22,8 +22,7 @@
     "bin",
     "index.js",
     "lib",
-    "tasks",
-    "test"
+    "tasks"
   ],
   "homepage": "https://github.com/hail2u/node-csswring",
   "keywords": [
