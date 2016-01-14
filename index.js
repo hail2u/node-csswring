@@ -42,7 +42,7 @@ var canUnquote = function (str) {
 
   if (
     firstChar === "-" &&
-    (secondChar === "-" || re.number.test(secondChar))
+    (secondChar === "-" || secondChar === "" || re.number.test(secondChar))
   ) {
     return false;
   }
