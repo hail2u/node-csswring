@@ -1,0 +1,1 @@
+:root{--foo:"Foo"}.foo{font-family:var(--foo)}.bar{font-family:Bar,var(--foo),serif}.baz{font-family:"var(--foo)"}
