@@ -57,6 +57,11 @@ var canUnquote = function (str) {
 // Unquote font family name if possible
 var unquoteFontFamily = function (family) {
   var quote;
+
+  if (family.match(re.varFunction)) {
+    return family;
+  }
+
   family = family.replace(re.quotedString, "$2");
   quote = setQuote(RegExp.$1);
 
