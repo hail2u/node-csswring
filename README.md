@@ -13,19 +13,22 @@ For readability, almost all CSS file contains a lot of white spaces, extra
 semicolon, etc.:
 
     .foo {
-      color: black;
+      width: 100px;
     }
     
     .bar {
-      margin-bottom: 0;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 0;
+      margin-top: 0px;
+    }
+    
+    .baz {
+      color: rgb(255, 0, 0);
+      background-color: rgb(36, 36, 36);
     }
 
-This PostCSS plugin removes these non-essential parts of CSS file, like this:
+This PostCSS plugin removes and converts these non-essential parts of CSS file,
+like this:
 
-    .foo{color:black}.bar{margin:0 auto}
+    .foo{width:100px}.bar{margin-top:0}.baz{color:red;background-color:#242424}
 
 
 INSTALL
