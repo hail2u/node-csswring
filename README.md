@@ -94,43 +94,11 @@ When PostCSS failed to parse INPUT, CLI shows a CSS parse error in GNU error
 format instead of Node.js stack trace.
 
 
-### As Grunt Plugin
-
-This package also installs a Grunt plugin. You can enable this plugin in
-`Gruntfile.js` of your project like that:
-
-    grunt.loadNpmTasks("csswring");
-
-To minify `src/css/**/*.css` to `build/css/**/*.min.css` with source map:
-
-    grunt.initConfig({
-      csswring: {
-        options: {
-          map: true
-        },
-    
-        main: {
-          cwd: "src/css/",
-          dest: "build/css/",
-          expand: true,
-          ext: "min.css",
-          src: [
-            "**/*.css"
-          ]
-        }
-      }
-    });
-
-The `options` is completely same as [this package options][2].
-
-This was not tested. I suggest using [`grunt-postcss`][3].
-
-
 MINIFICATIONS
 -------------
 
 CSSWring doesn’t remove only white spaces or comments, but also remove an
-unnecessary parts of CSS. See [minification details][4] in our GitHub Wiki.
+unnecessary parts of CSS. See [minification details][2] in our GitHub Wiki.
 
 
 OPTIONS
@@ -185,7 +153,7 @@ PostCSS’s `process()` method. This is useful for generating source map.
     fs.writeFileSync("to.css", result.css);
     fs.writeFileSync("to.css.map", result.map);
 
-See also [Source Map section][5] in PostCSS document for more about this
+See also [Source Map section][3] in PostCSS document for more about this
 `options`.
 
 You can also merge CSSWring options mentioned above to the second argument:
@@ -203,7 +171,5 @@ MIT: http://hail2u.mit-license.org/2014
 
 
 [1]: https://github.com/postcss/postcss
-[2]: #options
-[3]: https://github.com/nDmitry/grunt-postcss
-[4]: https://github.com/hail2u/node-csswring/wiki
-[5]: https://github.com/postcss/postcss#source-map
+[2]: https://github.com/hail2u/node-csswring/wiki
+[3]: https://github.com/postcss/postcss#source-map
