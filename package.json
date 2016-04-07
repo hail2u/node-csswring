@@ -10,7 +10,6 @@
     "url": "https://github.com/hail2u/node-csswring/issues"
   },
   "dependencies": {
-    "fs-extra": "^0.18.0",
     "minimist": "^1.1.0",
     "onecolor": "^2.4.0",
     "postcss": "^5.0.0"
@@ -21,13 +20,11 @@
   "files": [
     "bin",
     "index.js",
-    "lib",
-    "tasks"
+    "lib"
   ],
   "homepage": "https://github.com/hail2u/node-csswring",
   "keywords": [
     "css",
-    "gruntplugin",
     "minification",
     "postcss-plugin"
   ],
