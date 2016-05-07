@@ -1,7 +1,7 @@
 {
   "name": "csswring",
   "description": "Minify CSS file with source maps. That’s it.",
-  "version": "4.2.3",
+  "version": "5.0.0",
   "author": "Kyo Nagashima <hail2u@gmail.com> (https://kyonagashima.com/)",
   "bin": {
     "csswring": "./bin/csswring.js"
