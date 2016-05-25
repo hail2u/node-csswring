@@ -606,7 +606,6 @@ module.exports = postcss.plugin(pkg.name, function (opts) {
       filter: false
     }));
     css.walkAtRules(wringAtRule);
-    css.replaceValues();
 
     return css;
   };
