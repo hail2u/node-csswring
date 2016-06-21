@@ -1,6 +1,6 @@
 {
   "name": "csswring",
-  "description": "Minify CSS file with source maps. That’s it.",
+  "description": "A CSS minifier for PostCSS",
   "version": "5.0.0",
   "author": "Kyo Nagashima <hail2u@gmail.com> (https://kyonagashima.com/)",
   "bin": {

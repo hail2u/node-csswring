@@ -1,9 +1,7 @@
 CSSWring
 ========
 
-Minify CSS file with source maps. That’s it.
-
-Written with [PostCSS][1].
+A CSS minifier for [PostCSS][1]
 
 
 SYNOPSIS
