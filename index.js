@@ -6,6 +6,7 @@ var onecolor = require("onecolor");
 var pkg = require("./package.json");
 var postcss = require("postcss");
 var re = require("./lib/regexp");
+var unit = require("./lib/unit");
 
 // Check comment is a source map annotation or not
 var isSourceMapAnnotation = function (comment) {
@@ -105,7 +106,7 @@ var toShortestColor = function (m, leading, r1, r2, g1, g2, b1, b2) {
 };
 
 // Remove unit from 0 length and 0 percentage if possible
-var removeUnitOfZero = function (prop, m, leading, num, unit, position, value) {
+var removeUnitOfZero = function (prop, m, leading, num, u, position, value) {
   if (
     prop === "flex" ||
     prop === "-ms-flex" ||
@@ -115,6 +116,10 @@ var removeUnitOfZero = function (prop, m, leading, num, unit, position, value) {
     value.indexOf("calc(") !== -1
   ) {
     return m;
+  }
+
+  if (unit.forZero.hasOwnProperty(u)) {
+    num += unit.forZero[u];
   }
 
   return leading + num;
@@ -566,7 +571,7 @@ var wringAtRule = function (atRule) {
     params = params.replace(re.quotedString, "$2");
   }
 
-  if (atRule.name === "supports") {
+  if (atRule.name === "media" || atRule.name === "supports") {
     params = params.replace(re.declInParentheses, wringDeclLike);
   }
 

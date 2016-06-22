@@ -1,3 +1,11 @@
 .foo {
   border: 0px solid red;
 }
+
+@media (min-resolution: 0dppx) {
+  .bar {
+    pitch: 0kHz;
+    transform: rotate(0grad);
+    transition-duration: 0ms;
+  }
+}
