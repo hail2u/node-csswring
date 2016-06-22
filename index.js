@@ -571,7 +571,7 @@ var wringAtRule = function (atRule) {
     params = params.replace(re.quotedString, "$2");
   }
 
-  if (atRule.name === "media" || atRule.name === "supports") {
+  if (atRule.name === "supports") {
     params = params.replace(re.declInParentheses, wringDeclLike);
   }
 
