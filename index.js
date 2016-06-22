@@ -128,6 +128,7 @@ var removeUnitOfZero = function (prop, m, leading, num, u, position, value) {
 // Unquote inside `url()` notation if possible
 var unquoteURL = function (m, leading, url) {
   var quote;
+
   url = url.replace(re.quotedString, "$2");
   quote = setQuote(RegExp.$1);
   url = url.replace(re.escapedBraces, "$1");
@@ -437,6 +438,7 @@ var wringDeclLike = function (m, prop, value) {
     prop: prop,
     value: value
   });
+
   wringDecl.call(null, false, decl);
 
   return "(" + decl.toString() + ")";
@@ -447,6 +449,7 @@ var wringRule = function (rule) {
   var decls;
   var parent;
   var selectors;
+
   rule.raws.before = "";
   rule.raws.between = "";
   rule.raws.semicolon = false;
@@ -510,6 +513,7 @@ var filterAtRule = function (flag, rule) {
 // Wring at-rule
 var wringAtRule = function (atRule) {
   var params;
+
   atRule.raws.before = "";
   atRule.raws.afterName = " ";
   atRule.raws.between = "";
