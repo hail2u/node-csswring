@@ -132,25 +132,10 @@ var toShortestTime = function (m, leading, n) {
 
 // Convert to shortest angle
 var toShortestAngle = function (m, leading, n, u) {
-  var i;
-
   n = parseInt(n, 10);
-  i = n / 360;
 
-  if (u === "deg" && Number.isInteger(i)) {
-    return leading + i + "turn";
-  }
-
-  if (u === "grad") {
-    i = n / 400;
-
-    if (Number.isInteger(i)) {
-      return leading + i + "turn";
-    }
-
-    if (Number.isInteger(n / 10)) {
-      return leading + (n * (360 / 400)) + "deg";
-    }
+  if (Number.isInteger(n / 10)) {
+    return leading + (n * (360 / 400)) + "deg";
   }
 
   return leading + n + u;
