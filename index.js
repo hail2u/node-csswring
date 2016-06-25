@@ -198,6 +198,9 @@ var wringValue = function (prop, value) {
     re.angle,
     toShortestAngle
   ).replace(
+    re.freqEndsWithThreeZeros,
+    "$1$2kHz"
+  ).replace(
     re.urlFunction,
     unquoteURL
   ).replace(
