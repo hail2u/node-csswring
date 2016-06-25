@@ -130,6 +130,17 @@ var toShortestTime = function (m, leading, n) {
   return leading + (parseInt(n) / 100).toString().replace(/^0+/, "") + "s";
 };
 
+// Convert to shortest angle
+var toShortestAngle = function (m, leading, n, u) {
+  n = parseInt(n, 10);
+
+  if (Number.isInteger(n / 10)) {
+    return leading + (n * (360 / 400)) + "deg";
+  }
+
+  return leading + n + u;
+};
+
 // Unquote inside `url()` notation if possible
 var unquoteURL = function (m, leading, url) {
   var quote;
@@ -183,6 +194,9 @@ var wringValue = function (prop, value) {
   ).replace(
     re.timeEndsWithZero,
     toShortestTime
+  ).replace(
+    re.angle,
+    toShortestAngle
   ).replace(
     re.urlFunction,
     unquoteURL
