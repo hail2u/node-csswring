@@ -1,0 +1,5 @@
+.foo {
+  pause-after: 210ms;
+  pause-before: 2100ms;
+  pause: 4321ms;
+}
