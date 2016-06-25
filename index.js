@@ -125,6 +125,11 @@ var removeUnitOfZero = function (prop, m, leading, num, u, position, value) {
   return leading + num;
 };
 
+// Convert to shortest time
+var toShortestTime = function (m, leading, n) {
+  return leading + (parseInt(n) / 100).toString().replace(/^0+/, "") + "s";
+};
+
 // Unquote inside `url()` notation if possible
 var unquoteURL = function (m, leading, url) {
   var quote;
@@ -175,6 +180,9 @@ var wringValue = function (prop, value) {
   ).replace(
     re.decimalWithZeros,
     "$1$2$3.$4"
+  ).replace(
+    re.timeEndsWithZero,
+    toShortestTime
   ).replace(
     re.urlFunction,
     unquoteURL
