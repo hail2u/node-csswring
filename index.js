@@ -127,7 +127,7 @@ var removeUnitOfZero = function (prop, m, leading, num, u, position, value) {
 
 // Convert to shortest time
 var toShortestTime = function (m, leading, n) {
-  return leading + (parseInt(n) / 100).toString().replace(/^0+/, "") + "s";
+  return leading + (parseInt(n, 10) / 100).toString().replace(/^0+/, "") + "s";
 };
 
 // Convert to shortest angle
