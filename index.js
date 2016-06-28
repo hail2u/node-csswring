@@ -257,6 +257,9 @@ var wringSelector = function (selector) {
   ).replace(
     re.selectorPseudoElements,
     "$1"
+  ).replace(
+    re.selectorVerboseUniversal,
+    "$1"
   );
 };
 
