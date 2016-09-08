@@ -1,7 +1,7 @@
 CSSWring
 ========
 
-A CSS minifier of [PostCSS][1], by PostCSS, for PostCSS
+Minify CSS using PostCSS
 
 
 SYNOPSIS
