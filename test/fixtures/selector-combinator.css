@@ -13,3 +13,11 @@
 .foo .\<quux\> {
   display: block;
 }
+
+.foo\+ .bar {
+  display: block;
+}
+
+.foo\+ + .baz {
+  display: block;
+}

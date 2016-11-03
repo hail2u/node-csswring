@@ -237,6 +237,15 @@ var trimNegationFunction = function (m, not) {
   return ":not(" + not.trim() + ")";
 };
 
+// Remove white spaces around `>`, `+`, and `~`, but not `\>`, `\+`, and `\~`
+var trimSelectorCombinator = function (m, combinator, backslash) {
+  if (backslash) {
+    return " " + combinator + " ";
+  }
+
+  return combinator;
+};
+
 // Wring selector of ruleset
 var wringSelector = function (selector) {
   return selector.replace(
@@ -253,7 +262,7 @@ var wringSelector = function (selector) {
     trimNegationFunction
   ).replace(
     re.selectorCombinators,
-    "$1"
+    trimSelectorCombinator
   ).replace(
     re.selectorPseudoElements,
     "$1"
