@@ -9,10 +9,10 @@ var pkg = require("../package.json");
 
 var binname = Object.keys(pkg.bin)[0];
 var showHelp = function () {
-  console.log("Usage: " + binname + " [options] INPUT [OUTPUT]");
+  console.log(`Usage: ${binname} [options] INPUT [OUTPUT]`);
   console.log("");
   console.log("Description:");
-  console.log("  " + pkg.description);
+  console.log(`  ${pkg.description}`);
   console.log("");
   console.log("Options:");
   console.log("      --sourcemap            Create source map file.");
@@ -24,10 +24,9 @@ var showHelp = function () {
   console.log("Use a single dash for INPUT to read CSS from standard input.");
   console.log("");
   console.log("Examples:");
-  console.log("  $ " + binname + " foo.css");
-  console.log("  $ " + binname + " foo.css > foo.min.css");
-  console.log("  $ cat foo.css bar.css baz.css | " + binname +
-    " - > fbb.min.css");
+  console.log(`  $ ${binname} foo.css`);
+  console.log(`  $ ${binname} foo.css > foo.min.css`);
+  console.log(`  $ cat foo.css bar.css baz.css | ${binname} - > fbb.min.css`);
 
   return;
 };
@@ -42,16 +41,11 @@ var wring = function (s, o) {
     fs.writeFileSync(o.to, result.css);
 
     if (result.map) {
-      fs.writeFileSync(o.to + ".map", result.map);
+      fs.writeFileSync(`${o.to}.map`, result.map);
     }
   }).catch(function (error) {
     if (error.name === "CssSyntaxError") {
-      console.error([
-        error.file,
-        error.line,
-        error.column,
-        " " + error.reason
-      ].join(":"));
+      console.error(`${error.file}:${error.line}:${error.column}: ${error.reason}`);
       process.exit(1);
     }
 
@@ -87,7 +81,7 @@ if (argv._.length < 1) {
 
 switch (true) {
 case argv.version:
-  console.log(binname + " v" + pkg.version);
+  console.log(`${binname} v${pkg.version}`);
 
   break;
 
