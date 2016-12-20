@@ -67,7 +67,7 @@ function unquoteFontFamily(family) {
   quote = setQuote(RegExp.$1);
 
   if (!list.space(family).every(canUnquote)) {
-    family = quote + family + quote;
+    family = `${quote}${family}${quote}`;
   }
 
   return family;
@@ -84,25 +84,25 @@ function toRGBColor(m, leading, c) {
   }
 
   if (c.alpha() < 1) {
-    return leading + c.cssa();
+    return `${leading}${c.cssa()}`;
   }
 
-  return leading + c.hex() + " ";
+  return `${leading}${c.hex()} `;
 }
 
 // Convert to shortest color
 function toShortestColor(m, leading, r1, r2, g1, g2, b1, b2) {
-  let c = "#" + r1 + r2 + g1 + g2 + b1 + b2;
+  let c = `#${r1}${r2}${g1}${g2}${b1}${b2}`;
 
   if (r1 === r2 && g1 === g2 && b1 === b2) {
-    c = "#" + r1 + g1 + b1;
+    c = `#${r1}${g1}${b1}`;
   }
 
   if (color.shortest.hasOwnProperty(c)) {
     c = color.shortest[c];
   }
 
-  return leading + c.toLowerCase();
+  return `${leading}${c.toLowerCase()}`;
 }
 
 // Remove unit from 0 length and 0 percentage if possible
@@ -119,15 +119,15 @@ function removeUnitOfZero(prop, m, leading, num, u, position, value) {
   }
 
   if (unit.forZero.hasOwnProperty(u)) {
-    num += unit.forZero[u];
+    num = `${num}${unit.forZero[u]}`;
   }
 
-  return leading + num;
+  return `${leading}${num}`;
 }
 
 // Convert to shortest time
 function toShortestTime(m, leading, n) {
-  return leading + (parseInt(n, 10) / 100).toString().replace(/^0+/, "") + "s";
+  return `${leading}${(parseInt(n, 10) / 100).toString().replace(/^0+/, "")}s`;
 }
 
 // Convert to shortest angle
@@ -135,10 +135,10 @@ function toShortestAngle(m, leading, n, u) {
   n = parseInt(n, 10);
 
   if (Number.isInteger(n / 10)) {
-    return leading + (n * (360 / 400)) + "deg";
+    return `${leading}${(n * (360 / 400))}deg`;
   }
 
-  return leading + n + u;
+  return `${leading}${n}${u}`;
 }
 
 // Unquote inside `url()` notation if possible
@@ -150,16 +150,18 @@ function unquoteURL(m, leading, url) {
   url = url.replace(re.escapedBraces, "$1");
 
   if (re.urlNeedQuote.test(url)) {
-    url = quote + url + quote;
+    url = `${quote}${url}${quote}`;
   }
 
-  return leading + "url(" + url + ")";
+  return `${leading}url(${url})`;
 }
 
 // Remove white spaces inside `calc()` notation
 function removeCalcWhiteSpaces(m, leading, calc) {
-  return leading + "calc(" +
-    calc.replace(re.whiteSpacesBothEndsOfSymbol, "$1") + ")";
+  return `${leading}calc(${calc.replace(
+    re.whiteSpacesBothEndsOfSymbol,
+    "$1"
+  )})`;
 }
 
 // Wring value of declaration
@@ -214,17 +216,17 @@ function unquoteAttributeSelector(m, att, con, val) {
   let quote;
 
   if (!con || !val) {
-    return "[" + att + "]";
+    return `[${att}]`;
   }
 
   val = val.trim().replace(re.quotedString, "$2");
   quote = setQuote(RegExp.$1);
 
   if (!canUnquote(val)) {
-    val = quote + val + quote;
+    val = `${quote}${val}${quote}`;
   }
 
-  return "[" + att + con + val + "]";
+  return `[${att}${con}${val}]`;
 }
 
 // Remove white spaces from string
@@ -234,13 +236,13 @@ function removeWhiteSpaces(string) {
 
 // Remove white spaces from both ends of `:not()`
 function trimNegationFunction(m, not) {
-  return ":not(" + not.trim() + ")";
+  return `:not(${  not.trim()  })`;
 }
 
 // Remove white spaces around `>`, `+`, and `~`, but not `\>`, `\+`, and `\~`
 function trimSelectorCombinator(m, combinator, backslash) {
   if (backslash) {
-    return " " + combinator + " ";
+    return ` ${  combinator  } `;
   }
 
   return combinator;
@@ -307,7 +309,7 @@ function uniqueArray(array) {
 
 // Remove duplicate declaration
 function removeDuplicateDeclaration(decls, decl) {
-  const d = decl.raws.before + decl.prop + decl.raws.between + decl.value;
+  const d = `${decl.raws.before}${decl.prop}${decl.raws.between}${decl.value}`;
 
   if (decls.hasOwnProperty(d)) {
     decls[d].remove();
@@ -331,7 +333,7 @@ function removeDefaultFontFaceDescriptor(decl) {
   if (
     (re.descriptorFontFace.test(prop) && value === "normal") ||
     (prop === "unicode-range" && re.unicodeRangeDefault.test(value)) ||
-    prop + value === "font-weight400"
+    `${prop}${value}` === "font-weight400"
   ) {
     decl.remove();
   }
@@ -341,7 +343,7 @@ function removeDefaultFontFaceDescriptor(decl) {
 function quoteImportURL(m, quote, url) {
   quote = setQuote(quote);
 
-  return quote + url + quote;
+  return `${quote}${url}${quote}`;
 }
 
 // Quote `@namespace` URL
@@ -351,7 +353,7 @@ function quoteNamespaceURL(param, index, p) {
   if (param === p[p.length - 1]) {
     param = param.replace(re.quotedString, "$2");
     quote = setQuote(RegExp.$1);
-    param = quote + param + quote;
+    param = `${quote}${param}${quote}`;
   }
 
   return param;
@@ -479,7 +481,7 @@ function wringDeclLike(m, prop, value) {
 
   wringDecl.call(null, false, decl);
 
-  return "(" + decl.toString() + ")";
+  return `(${  decl.toString()  })`;
 }
 
 // Wring ruleset
