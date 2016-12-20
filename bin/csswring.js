@@ -22,6 +22,12 @@ var showHelp = function () {
   console.log("  -v, --version              Print version information.");
   console.log("");
   console.log("Use a single dash for INPUT to read CSS from standard input.");
+  console.log("");
+  console.log("Examples:");
+  console.log("  $ " + binname + " foo.css");
+  console.log("  $ " + binname + " foo.css > foo.min.css");
+  console.log("  $ cat foo.css bar.css baz.css | " + binname +
+    " - > fbb.min.css");
 
   return;
 };
