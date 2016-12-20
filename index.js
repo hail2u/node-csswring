@@ -1,12 +1,12 @@
 "use strict";
 
-var color = require("./lib/color");
-var list = require("postcss/lib/list");
-var onecolor = require("onecolor");
-var pkg = require("./package.json");
-var postcss = require("postcss");
-var re = require("./lib/regexp");
-var unit = require("./lib/unit");
+const color = require("./lib/color");
+const list = require("postcss/lib/list");
+const onecolor = require("onecolor");
+const pkg = require("./package.json");
+const postcss = require("postcss");
+const re = require("./lib/regexp");
+const unit = require("./lib/unit");
 
 // Check comment is a source map annotation or not
 function isSourceMapAnnotation(comment) {
@@ -32,8 +32,8 @@ function setQuote(quote) {
 
 // Check string can unquote or not
 function canUnquote(str) {
-  var firstChar = str.slice(0, 1);
-  var secondChar;
+  const firstChar = str.slice(0, 1);
+  let secondChar;
 
   if (re.number.test(firstChar)) {
     return false;
@@ -57,7 +57,7 @@ function canUnquote(str) {
 
 // Unquote font family name if possible
 function unquoteFontFamily(family) {
-  var quote;
+  let quote;
 
   if (family.match(re.varFunction)) {
     return family;
@@ -92,7 +92,7 @@ function toRGBColor(m, leading, c) {
 
 // Convert to shortest color
 function toShortestColor(m, leading, r1, r2, g1, g2, b1, b2) {
-  var c = "#" + r1 + r2 + g1 + g2 + b1 + b2;
+  let c = "#" + r1 + r2 + g1 + g2 + b1 + b2;
 
   if (r1 === r2 && g1 === g2 && b1 === b2) {
     c = "#" + r1 + g1 + b1;
@@ -143,7 +143,7 @@ function toShortestAngle(m, leading, n, u) {
 
 // Unquote inside `url()` notation if possible
 function unquoteURL(m, leading, url) {
-  var quote;
+  let quote;
 
   url = url.replace(re.quotedString, "$2");
   quote = setQuote(RegExp.$1);
@@ -211,7 +211,7 @@ function wringValue(prop, value) {
 
 // Unquote attribute selector if possible
 function unquoteAttributeSelector(m, att, con, val) {
-  var quote;
+  let quote;
 
   if (!con || !val) {
     return "[" + att + "]";
@@ -289,10 +289,10 @@ function isValidKeyframe(keyframe) {
 
 // Unique array element
 function uniqueArray(array) {
-  var i;
-  var l;
-  var result = [];
-  var value;
+  let i;
+  let l;
+  const result = [];
+  let value;
 
   for (i = 0, l = array.length; i < l; i++) {
     value = array[i];
@@ -307,7 +307,7 @@ function uniqueArray(array) {
 
 // Remove duplicate declaration
 function removeDuplicateDeclaration(decls, decl) {
-  var d = decl.raws.before + decl.prop + decl.raws.between + decl.value;
+  const d = decl.raws.before + decl.prop + decl.raws.between + decl.value;
 
   if (decls.hasOwnProperty(d)) {
     decls[d].remove();
@@ -318,15 +318,15 @@ function removeDuplicateDeclaration(decls, decl) {
 
 // Check required `@font-face` descriptor or not
 function isRequiredFontFaceDescriptor(decl) {
-  var prop = decl.prop;
+  const prop = decl.prop;
 
   return (prop === "src") || (prop === "font-family");
 }
 
 // Remove `@font-face` descriptor with default value
 function removeDefaultFontFaceDescriptor(decl) {
-  var prop = decl.prop;
-  var value = decl.value;
+  const prop = decl.prop;
+  const value = decl.value;
 
   if (
     (re.descriptorFontFace.test(prop) && value === "normal") ||
@@ -346,7 +346,7 @@ function quoteImportURL(m, quote, url) {
 
 // Quote `@namespace` URL
 function quoteNamespaceURL(param, index, p) {
-  var quote;
+  let quote;
 
   if (param === p[p.length - 1]) {
     param = param.replace(re.quotedString, "$2");
@@ -373,11 +373,12 @@ function wringComment(removeAllComments, comment) {
 
 // Wring declaration
 function wringDecl(preserveHacks, decl) {
-  var before = decl.raws.before;
-  var between = decl.raws.between;
-  var prop = decl.prop;
-  var value = decl.value;
-  var values;
+  const prop = decl.prop;
+
+  let before = decl.raws.before;
+  let between = decl.raws.between;
+  let value = decl.value;
+  let values;
 
   if (!prop.match(re.validProp)) {
     decl.remove();
@@ -471,7 +472,7 @@ function wringDecl(preserveHacks, decl) {
 
 // Wring declaration like string
 function wringDeclLike(m, prop, value) {
-  var decl = postcss.decl({
+  const decl = postcss.decl({
     prop: prop,
     value: value
   });
@@ -483,9 +484,9 @@ function wringDeclLike(m, prop, value) {
 
 // Wring ruleset
 function wringRule(rule) {
-  var decls;
-  var parent;
-  var selectors;
+  let decls;
+  let parent;
+  let selectors;
 
   rule.raws.before = "";
   rule.raws.between = "";
@@ -518,8 +519,8 @@ function wringRule(rule) {
 
 // Filter at-rule
 function filterAtRule(flag, rule) {
-  var name = rule.name;
-  var type = rule.type;
+  const name = rule.name;
+  const type = rule.type;
 
   if (type === "comment") {
     return;
@@ -549,7 +550,7 @@ function filterAtRule(flag, rule) {
 
 // Wring at-rule
 function wringAtRule(atRule) {
-  var params;
+  let params;
 
   atRule.raws.before = "";
   atRule.raws.afterName = " ";

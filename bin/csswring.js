@@ -2,12 +2,12 @@
 
 "use strict";
 
-var csswring = require("../index");
-var fs = require("fs");
-var minimist = require("minimist");
-var pkg = require("../package.json");
+const csswring = require("../index");
+const fs = require("fs");
+const minimist = require("minimist");
+const pkg = require("../package.json");
 
-var argv = minimist(process.argv.slice(2), {
+const argv = minimist(process.argv.slice(2), {
   boolean: [
     "help",
     "preserve-hacks",
@@ -27,9 +27,8 @@ var argv = minimist(process.argv.slice(2), {
     "version": false
   }
 });
-var binname = Object.keys(pkg.bin)[0];
-var css = "";
-var options = {};
+const binname = Object.keys(pkg.bin)[0];
+const options = {};
 
 function showHelp() {
   console.log(`Usage: ${binname} [options] INPUT [OUTPUT]`);
@@ -122,6 +121,5 @@ default:
     argv._[0] = process.stdin.fd;
   }
 
-  css = fs.readFileSync(argv._[0], "utf8");
-  wring(css, options);
+  wring(fs.readFileSync(argv._[0], "utf8"), options);
 }
