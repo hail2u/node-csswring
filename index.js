@@ -9,7 +9,7 @@ var re = require("./lib/regexp");
 var unit = require("./lib/unit");
 
 // Check comment is a source map annotation or not
-var isSourceMapAnnotation = function (comment) {
+function isSourceMapAnnotation(comment) {
   if (
     comment.parent.type === "root" &&
     comment.parent.last === comment &&
@@ -19,19 +19,19 @@ var isSourceMapAnnotation = function (comment) {
   }
 
   return false;
-};
+}
 
 // Set quotation mark
-var setQuote = function (quote) {
+function setQuote(quote) {
   if (!quote) {
     quote = "\"";
   }
 
   return quote;
-};
+}
 
 // Check string can unquote or not
-var canUnquote = function (str) {
+function canUnquote(str) {
   var firstChar = str.slice(0, 1);
   var secondChar;
 
@@ -53,10 +53,10 @@ var canUnquote = function (str) {
   }
 
   return false;
-};
+}
 
 // Unquote font family name if possible
-var unquoteFontFamily = function (family) {
+function unquoteFontFamily(family) {
   var quote;
 
   if (family.match(re.varFunction)) {
@@ -71,10 +71,10 @@ var unquoteFontFamily = function (family) {
   }
 
   return family;
-};
+}
 
 // Convert colors to HEX or `rgba()` notation
-var toRGBColor = function (m, leading, c) {
+function toRGBColor(m, leading, c) {
   c = onecolor(c);
 
   /* istanbul ignore if  */
@@ -88,10 +88,10 @@ var toRGBColor = function (m, leading, c) {
   }
 
   return leading + c.hex() + " ";
-};
+}
 
 // Convert to shortest color
-var toShortestColor = function (m, leading, r1, r2, g1, g2, b1, b2) {
+function toShortestColor(m, leading, r1, r2, g1, g2, b1, b2) {
   var c = "#" + r1 + r2 + g1 + g2 + b1 + b2;
 
   if (r1 === r2 && g1 === g2 && b1 === b2) {
@@ -103,10 +103,10 @@ var toShortestColor = function (m, leading, r1, r2, g1, g2, b1, b2) {
   }
 
   return leading + c.toLowerCase();
-};
+}
 
 // Remove unit from 0 length and 0 percentage if possible
-var removeUnitOfZero = function (prop, m, leading, num, u, position, value) {
+function removeUnitOfZero(prop, m, leading, num, u, position, value) {
   if (
     prop === "flex" ||
     prop === "-ms-flex" ||
@@ -123,15 +123,15 @@ var removeUnitOfZero = function (prop, m, leading, num, u, position, value) {
   }
 
   return leading + num;
-};
+}
 
 // Convert to shortest time
-var toShortestTime = function (m, leading, n) {
+function toShortestTime(m, leading, n) {
   return leading + (parseInt(n, 10) / 100).toString().replace(/^0+/, "") + "s";
-};
+}
 
 // Convert to shortest angle
-var toShortestAngle = function (m, leading, n, u) {
+function toShortestAngle(m, leading, n, u) {
   n = parseInt(n, 10);
 
   if (Number.isInteger(n / 10)) {
@@ -139,10 +139,10 @@ var toShortestAngle = function (m, leading, n, u) {
   }
 
   return leading + n + u;
-};
+}
 
 // Unquote inside `url()` notation if possible
-var unquoteURL = function (m, leading, url) {
+function unquoteURL(m, leading, url) {
   var quote;
 
   url = url.replace(re.quotedString, "$2");
@@ -154,16 +154,16 @@ var unquoteURL = function (m, leading, url) {
   }
 
   return leading + "url(" + url + ")";
-};
+}
 
 // Remove white spaces inside `calc()` notation
-var removeCalcWhiteSpaces = function (m, leading, calc) {
+function removeCalcWhiteSpaces(m, leading, calc) {
   return leading + "calc(" +
     calc.replace(re.whiteSpacesBothEndsOfSymbol, "$1") + ")";
-};
+}
 
 // Wring value of declaration
-var wringValue = function (prop, value) {
+function wringValue(prop, value) {
   return value.replace(
     re.colorFunction,
     toRGBColor
@@ -207,10 +207,10 @@ var wringValue = function (prop, value) {
     re.calcFunction,
     removeCalcWhiteSpaces
   );
-};
+}
 
 // Unquote attribute selector if possible
-var unquoteAttributeSelector = function (m, att, con, val) {
+function unquoteAttributeSelector(m, att, con, val) {
   var quote;
 
   if (!con || !val) {
@@ -225,29 +225,29 @@ var unquoteAttributeSelector = function (m, att, con, val) {
   }
 
   return "[" + att + con + val + "]";
-};
+}
 
 // Remove white spaces from string
-var removeWhiteSpaces = function (string) {
+function removeWhiteSpaces(string) {
   return string.replace(re.whiteSpaces, "");
-};
+}
 
 // Remove white spaces from both ends of `:not()`
-var trimNegationFunction = function (m, not) {
+function trimNegationFunction(m, not) {
   return ":not(" + not.trim() + ")";
-};
+}
 
 // Remove white spaces around `>`, `+`, and `~`, but not `\>`, `\+`, and `\~`
-var trimSelectorCombinator = function (m, combinator, backslash) {
+function trimSelectorCombinator(m, combinator, backslash) {
   if (backslash) {
     return " " + combinator + " ";
   }
 
   return combinator;
-};
+}
 
 // Wring selector of ruleset
-var wringSelector = function (selector) {
+function wringSelector(selector) {
   return selector.replace(
     re.whiteSpaces,
     " "
@@ -270,10 +270,10 @@ var wringSelector = function (selector) {
     re.selectorVerboseUniversal,
     "$1"
   );
-};
+}
 
 // Check keyframe is valid or not
-var isValidKeyframe = function (keyframe) {
+function isValidKeyframe(keyframe) {
   if (keyframe === "from" || keyframe === "to") {
     return true;
   }
@@ -285,10 +285,10 @@ var isValidKeyframe = function (keyframe) {
   }
 
   return false;
-};
+}
 
 // Unique array element
-var uniqueArray = function (array) {
+function uniqueArray(array) {
   var i;
   var l;
   var result = [];
@@ -303,10 +303,10 @@ var uniqueArray = function (array) {
   }
 
   return result;
-};
+}
 
 // Remove duplicate declaration
-var removeDuplicateDeclaration = function (decls, decl) {
+function removeDuplicateDeclaration(decls, decl) {
   var d = decl.raws.before + decl.prop + decl.raws.between + decl.value;
 
   if (decls.hasOwnProperty(d)) {
@@ -314,17 +314,17 @@ var removeDuplicateDeclaration = function (decls, decl) {
   }
 
   decls[d] = decl;
-};
+}
 
 // Check required `@font-face` descriptor or not
-var isRequiredFontFaceDescriptor = function (decl) {
+function isRequiredFontFaceDescriptor(decl) {
   var prop = decl.prop;
 
   return (prop === "src") || (prop === "font-family");
-};
+}
 
 // Remove `@font-face` descriptor with default value
-var removeDefaultFontFaceDescriptor = function (decl) {
+function removeDefaultFontFaceDescriptor(decl) {
   var prop = decl.prop;
   var value = decl.value;
 
@@ -335,17 +335,17 @@ var removeDefaultFontFaceDescriptor = function (decl) {
   ) {
     decl.remove();
   }
-};
+}
 
 // Quote `@import` URL
-var quoteImportURL = function (m, quote, url) {
+function quoteImportURL(m, quote, url) {
   quote = setQuote(quote);
 
   return quote + url + quote;
-};
+}
 
 // Quote `@namespace` URL
-var quoteNamespaceURL = function (param, index, p) {
+function quoteNamespaceURL(param, index, p) {
   var quote;
 
   if (param === p[p.length - 1]) {
@@ -355,10 +355,10 @@ var quoteNamespaceURL = function (param, index, p) {
   }
 
   return param;
-};
+}
 
 // Wring comment
-var wringComment = function (removeAllComments, comment) {
+function wringComment(removeAllComments, comment) {
   if (
     (removeAllComments || comment.text.indexOf("!") !== 0) &&
     !isSourceMapAnnotation(comment)
@@ -369,10 +369,10 @@ var wringComment = function (removeAllComments, comment) {
   }
 
   comment.raws.before = "";
-};
+}
 
 // Wring declaration
-var wringDecl = function (preserveHacks, decl) {
+function wringDecl(preserveHacks, decl) {
   var before = decl.raws.before;
   var between = decl.raws.between;
   var prop = decl.prop;
@@ -467,10 +467,10 @@ var wringDecl = function (preserveHacks, decl) {
   }
 
   decl.value = value;
-};
+}
 
 // Wring declaration like string
-var wringDeclLike = function (m, prop, value) {
+function wringDeclLike(m, prop, value) {
   var decl = postcss.decl({
     prop: prop,
     value: value
@@ -479,10 +479,10 @@ var wringDeclLike = function (m, prop, value) {
   wringDecl.call(null, false, decl);
 
   return "(" + decl.toString() + ")";
-};
+}
 
 // Wring ruleset
-var wringRule = function (rule) {
+function wringRule(rule) {
   var decls;
   var parent;
   var selectors;
@@ -514,10 +514,10 @@ var wringRule = function (rule) {
   rule.selector = uniqueArray(selectors).join(",");
   decls = {};
   rule.each(removeDuplicateDeclaration.bind(null, decls));
-};
+}
 
 // Filter at-rule
-var filterAtRule = function (flag, rule) {
+function filterAtRule(flag, rule) {
   var name = rule.name;
   var type = rule.type;
 
@@ -545,10 +545,10 @@ var filterAtRule = function (flag, rule) {
 
     return;
   }
-};
+}
 
 // Wring at-rule
-var wringAtRule = function (atRule) {
+function wringAtRule(atRule) {
   var params;
 
   atRule.raws.before = "";
@@ -626,7 +626,7 @@ var wringAtRule = function (atRule) {
   ) {
     atRule.raws.afterName = "";
   }
-};
+}
 
 module.exports = postcss.plugin(pkg.name, function (opts) {
   if (!opts) {

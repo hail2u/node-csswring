@@ -7,51 +7,6 @@ var fs = require("fs");
 var minimist = require("minimist");
 var pkg = require("../package.json");
 
-var binname = Object.keys(pkg.bin)[0];
-var showHelp = function () {
-  console.log(`Usage: ${binname} [options] INPUT [OUTPUT]`);
-  console.log("");
-  console.log("Description:");
-  console.log(`  ${pkg.description}`);
-  console.log("");
-  console.log("Options:");
-  console.log("      --sourcemap            Create source map file.");
-  console.log("      --preserve-hacks       Preserve some CSS hacks.");
-  console.log("      --remove-all-comments  Remove all comments.");
-  console.log("  -h, --help                 Show this message.");
-  console.log("  -v, --version              Print version information.");
-  console.log("");
-  console.log("Use a single dash for INPUT to read CSS from standard input.");
-  console.log("");
-  console.log("Examples:");
-  console.log(`  $ ${binname} foo.css`);
-  console.log(`  $ ${binname} foo.css > foo.min.css`);
-  console.log(`  $ cat foo.css bar.css baz.css | ${binname} - > fbb.min.css`);
-
-  return;
-};
-var wring = function (s, o) {
-  csswring.wring(s, o).then(function (result) {
-    if (!o.to) {
-      process.stdout.write(result.css);
-
-      return;
-    }
-
-    fs.writeFileSync(o.to, result.css);
-
-    if (result.map) {
-      fs.writeFileSync(`${o.to}.map`, result.map);
-    }
-  }).catch(function (error) {
-    if (error.name === "CssSyntaxError") {
-      console.error(`${error.file}:${error.line}:${error.column}: ${error.reason}`);
-      process.exit(1);
-    }
-
-    throw error;
-  });
-};
 var argv = minimist(process.argv.slice(2), {
   boolean: [
     "help",
@@ -72,8 +27,55 @@ var argv = minimist(process.argv.slice(2), {
     "version": false
   }
 });
+var binname = Object.keys(pkg.bin)[0];
 var css = "";
 var options = {};
+
+function showHelp() {
+  console.log(`Usage: ${binname} [options] INPUT [OUTPUT]`);
+  console.log("");
+  console.log("Description:");
+  console.log(`  ${pkg.description}`);
+  console.log("");
+  console.log("Options:");
+  console.log("      --sourcemap            Create source map file.");
+  console.log("      --preserve-hacks       Preserve some CSS hacks.");
+  console.log("      --remove-all-comments  Remove all comments.");
+  console.log("  -h, --help                 Show this message.");
+  console.log("  -v, --version              Print version information.");
+  console.log("");
+  console.log("Use a single dash for INPUT to read CSS from standard input.");
+  console.log("");
+  console.log("Examples:");
+  console.log(`  $ ${binname} foo.css`);
+  console.log(`  $ ${binname} foo.css > foo.min.css`);
+  console.log(`  $ cat foo.css bar.css baz.css | ${binname} - > fbb.min.css`);
+
+  return;
+}
+
+function wring(s, o) {
+  csswring.wring(s, o).then(function (result) {
+    if (!o.to) {
+      process.stdout.write(result.css);
+
+      return;
+    }
+
+    fs.writeFileSync(o.to, result.css);
+
+    if (result.map) {
+      fs.writeFileSync(`${o.to}.map`, result.map);
+    }
+  }).catch(function (error) {
+    if (error.name === "CssSyntaxError") {
+      console.error(`${error.file}:${error.line}:${error.column}: ${error.reason}`);
+      process.exit(1);
+    }
+
+    throw error;
+  });
+}
 
 if (argv._.length < 1) {
   argv.help = true;
