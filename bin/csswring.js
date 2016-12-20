@@ -78,6 +78,8 @@ var argv = minimist(process.argv.slice(2), {
     "version": false
   }
 });
+var css = "";
+var options = {};
 
 if (argv._.length < 1) {
   argv.help = true;
@@ -95,9 +97,6 @@ case argv.help:
   break;
 
 default:
-  var css = "";
-  var options = {};
-
   if (argv["preserve-hacks"]) {
     options.preserveHacks = true;
   }
