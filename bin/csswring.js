@@ -31,24 +31,24 @@ const binname = Object.keys(pkg.bin)[0];
 const options = {};
 
 function showHelp() {
-  console.log(`Usage: ${binname} [options] INPUT [OUTPUT]`);
-  console.log("");
-  console.log("Description:");
-  console.log(`  ${pkg.description}`);
-  console.log("");
-  console.log("Options:");
-  console.log("      --sourcemap            Create source map file.");
-  console.log("      --preserve-hacks       Preserve some CSS hacks.");
-  console.log("      --remove-all-comments  Remove all comments.");
-  console.log("  -h, --help                 Show this message.");
-  console.log("  -v, --version              Print version information.");
-  console.log("");
-  console.log("Use a single dash for INPUT to read CSS from standard input.");
-  console.log("");
-  console.log("Examples:");
-  console.log(`  $ ${binname} foo.css`);
-  console.log(`  $ ${binname} foo.css > foo.min.css`);
-  console.log(`  $ cat foo.css bar.css baz.css | ${binname} - > fbb.min.css`);
+  console.log(`Usage: ${binname} [options] INPUT [OUTPUT]
+
+Description:
+  ${pkg.description}
+
+Options:
+      --sourcemap            Create source map file.
+      --preserve-hacks       Preserve some CSS hacks.
+      --remove-all-comments  Remove all comments.
+  -h, --help                 Show this message.
+  -v, --version              Print version information.
+
+Use a single dash for INPUT to read CSS from standard input.
+
+Examples:
+  $ ${binname} foo.css
+  $ ${binname} foo.css > foo.min.css
+  $ cat foo.css bar.css baz.css | ${binname} - > fbb.min.css`);
 
   return;
 }
