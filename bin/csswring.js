@@ -54,26 +54,28 @@ Examples:
 }
 
 function wring(s, o) {
-  csswring.wring(s, o).then(function (result) {
-    if (!o.to) {
-      process.stdout.write(result.css);
+  csswring.wring(s, o)
+    .then(function (result) {
+      if (!o.to) {
+        process.stdout.write(result.css);
 
-      return;
-    }
+        return;
+      }
 
-    fs.writeFileSync(o.to, result.css);
+      fs.writeFileSync(o.to, result.css);
 
-    if (result.map) {
-      fs.writeFileSync(`${o.to}.map`, result.map);
-    }
-  }).catch(function (error) {
-    if (error.name === "CssSyntaxError") {
-      console.error(`${error.file}:${error.line}:${error.column}: ${error.reason}`);
-      process.exit(1);
-    }
+      if (result.map) {
+        fs.writeFileSync(`${o.to}.map`, result.map);
+      }
+    })
+    .catch(function (error) {
+      if (error.name === "CssSyntaxError") {
+        console.error(`${error.file}:${error.line}:${error.column}: ${error.reason}`);
+        process.exit(1);
+      }
 
-    throw error;
-  });
+      throw error;
+    });
 }
 
 if (argv._.length < 1) {

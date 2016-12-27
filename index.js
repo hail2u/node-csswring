@@ -33,13 +33,12 @@ function setQuote(quote) {
 // Check string can unquote or not
 function canUnquote(str) {
   const firstChar = str.slice(0, 1);
-  let secondChar;
 
   if (re.number.test(firstChar)) {
     return false;
   }
 
-  secondChar = str.slice(1, 2);
+  const secondChar = str.slice(1, 2);
 
   if (
     firstChar === "-" &&
@@ -57,14 +56,12 @@ function canUnquote(str) {
 
 // Unquote font family name if possible
 function unquoteFontFamily(family) {
-  let quote;
-
   if (family.match(re.varFunction)) {
     return family;
   }
 
   family = family.replace(re.quotedString, "$2");
-  quote = setQuote(RegExp.$1);
+  const quote = setQuote(RegExp.$1);
 
   if (!list.space(family).every(canUnquote)) {
     family = `${quote}${family}${quote}`;
@@ -143,10 +140,9 @@ function toShortestAngle(m, leading, n, u) {
 
 // Unquote inside `url()` notation if possible
 function unquoteURL(m, leading, url) {
-  let quote;
-
   url = url.replace(re.quotedString, "$2");
-  quote = setQuote(RegExp.$1);
+  const quote = setQuote(RegExp.$1);
+
   url = url.replace(re.escapedBraces, "$1");
 
   if (re.urlNeedQuote.test(url)) {
@@ -166,61 +162,31 @@ function removeCalcWhiteSpaces(m, leading, calc) {
 
 // Wring value of declaration
 function wringValue(prop, value) {
-  return value.replace(
-    re.colorFunction,
-    toRGBColor
-  ).replace(
-    re.colorHex,
-    toShortestColor
-  ).replace(
-    re.colorTransparent,
-    "$1transparent "
-  ).trim().replace(
-    re.whiteSpaces,
-    " "
-  ).replace(
-    re.whiteSpacesAfterSymbol,
-    "$1"
-  ).replace(
-    re.whiteSpacesBeforeSymbol,
-    "$1"
-  ).replace(
-    re.numberLeadingZeros,
-    "$1$2"
-  ).replace(
-    re.zeroValueUnit,
-    removeUnitOfZero.bind(null, prop)
-  ).replace(
-    re.decimalWithZeros,
-    "$1$2$3.$4"
-  ).replace(
-    re.timeEndsWithZero,
-    toShortestTime
-  ).replace(
-    re.angle,
-    toShortestAngle
-  ).replace(
-    re.freqEndsWithThreeZeros,
-    "$1$2kHz"
-  ).replace(
-    re.urlFunction,
-    unquoteURL
-  ).replace(
-    re.calcFunction,
-    removeCalcWhiteSpaces
-  );
+  return value.replace(re.colorFunction, toRGBColor)
+    .replace(re.colorHex, toShortestColor)
+    .replace(re.colorTransparent, "$1transparent ")
+    .trim()
+    .replace(re.whiteSpaces, " ")
+    .replace(re.whiteSpacesAfterSymbol, "$1")
+    .replace(re.whiteSpacesBeforeSymbol, "$1")
+    .replace(re.numberLeadingZeros, "$1$2")
+    .replace(re.zeroValueUnit, removeUnitOfZero.bind(null, prop))
+    .replace(re.decimalWithZeros, "$1$2$3.$4")
+    .replace(re.timeEndsWithZero, toShortestTime)
+    .replace(re.angle, toShortestAngle)
+    .replace(re.freqEndsWithThreeZeros, "$1$2kHz")
+    .replace(re.urlFunction, unquoteURL)
+    .replace(re.calcFunction, removeCalcWhiteSpaces);
 }
 
 // Unquote attribute selector if possible
 function unquoteAttributeSelector(m, att, con, val) {
-  let quote;
-
   if (!con || !val) {
     return `[${att}]`;
   }
 
   val = val.trim().replace(re.quotedString, "$2");
-  quote = setQuote(RegExp.$1);
+  const quote = setQuote(RegExp.$1);
 
   if (!canUnquote(val)) {
     val = `${quote}${val}${quote}`;
@@ -250,28 +216,13 @@ function trimSelectorCombinator(m, combinator, backslash) {
 
 // Wring selector of ruleset
 function wringSelector(selector) {
-  return selector.replace(
-    re.whiteSpaces,
-    " "
-  ).replace(
-    re.selectorAtt,
-    unquoteAttributeSelector
-  ).replace(
-    re.selectorFunctions,
-    removeWhiteSpaces
-  ).replace(
-    re.selectorNegationFunction,
-    trimNegationFunction
-  ).replace(
-    re.selectorCombinators,
-    trimSelectorCombinator
-  ).replace(
-    re.selectorPseudoElements,
-    "$1"
-  ).replace(
-    re.selectorVerboseUniversal,
-    "$1"
-  );
+  return selector.replace(re.whiteSpaces, " ")
+    .replace(re.selectorAtt, unquoteAttributeSelector)
+    .replace(re.selectorFunctions, removeWhiteSpaces)
+    .replace(re.selectorNegationFunction, trimNegationFunction)
+    .replace(re.selectorCombinators, trimSelectorCombinator)
+    .replace(re.selectorPseudoElements, "$1")
+    .replace(re.selectorVerboseUniversal, "$1");
 }
 
 // Check keyframe is valid or not
@@ -291,13 +242,11 @@ function isValidKeyframe(keyframe) {
 
 // Unique array element
 function uniqueArray(array) {
-  let i;
-  let l;
+  const l = array.length;
   const result = [];
-  let value;
 
-  for (i = 0, l = array.length; i < l; i++) {
-    value = array[i];
+  for (let i = 0; i < l; i++) {
+    const value = array[i];
 
     if (result.indexOf(value) < 0) {
       result.push(value);
@@ -348,11 +297,10 @@ function quoteImportURL(m, quote, url) {
 
 // Quote `@namespace` URL
 function quoteNamespaceURL(param, index, p) {
-  let quote;
-
   if (param === p[p.length - 1]) {
     param = param.replace(re.quotedString, "$2");
-    quote = setQuote(RegExp.$1);
+    const quote = setQuote(RegExp.$1);
+
     param = `${quote}${param}${quote}`;
   }
 
@@ -380,7 +328,6 @@ function wringDecl(preserveHacks, decl) {
   let before = decl.raws.before;
   let between = decl.raws.between;
   let value = decl.value;
-  let values;
 
   if (!prop.match(re.validProp)) {
     decl.remove();
@@ -435,12 +382,15 @@ function wringDecl(preserveHacks, decl) {
   }
 
   if (prop === "font-family") {
-    decl.value = list.comma(value).map(unquoteFontFamily).join(",");
+    decl.value = list.comma(value)
+      .map(unquoteFontFamily)
+      .join(",");
 
     return;
   }
 
-  values = list.comma(value);
+  let values = list.comma(value);
+
   value = values.map(wringValue.bind(null, prop)).join(",");
 
   if (re.propertyMultipleValues.test(prop)) {
@@ -486,10 +436,6 @@ function wringDeclLike(m, prop, value) {
 
 // Wring ruleset
 function wringRule(rule) {
-  let decls;
-  let parent;
-  let selectors;
-
   rule.raws.before = "";
   rule.raws.between = "";
   rule.raws.semicolon = false;
@@ -501,8 +447,8 @@ function wringRule(rule) {
     return;
   }
 
-  parent = rule.parent;
-  selectors = rule.selectors.map(wringSelector);
+  const parent = rule.parent;
+  let selectors = rule.selectors.map(wringSelector);
 
   if (parent.type === "atrule" && parent.name === "keyframes") {
     selectors = selectors.filter(isValidKeyframe);
@@ -515,7 +461,8 @@ function wringRule(rule) {
   }
 
   rule.selector = uniqueArray(selectors).join(",");
-  decls = {};
+  const decls = {};
+
   rule.each(removeDuplicateDeclaration.bind(null, decls));
 }
 
@@ -552,8 +499,6 @@ function filterAtRule(flag, rule) {
 
 // Wring at-rule
 function wringAtRule(atRule) {
-  let params;
-
   atRule.raws.before = "";
   atRule.raws.afterName = " ";
   atRule.raws.between = "";
@@ -584,16 +529,10 @@ function wringAtRule(atRule) {
     return;
   }
 
-  params = atRule.params.replace(
-    re.whiteSpaces,
-    " "
-  ).replace(
-    re.whiteSpacesAfterSymbol,
-    "$1"
-  ).replace(
-    re.whiteSpacesBeforeSymbol,
-    "$1"
-  );
+  let params = atRule.params
+    .replace(re.whiteSpaces, " ")
+    .replace(re.whiteSpacesAfterSymbol, "$1")
+    .replace(re.whiteSpacesBeforeSymbol, "$1");
 
   if (atRule.name === "import") {
     params = params.replace(
@@ -606,9 +545,9 @@ function wringAtRule(atRule) {
   }
 
   if (atRule.name === "namespace") {
-    params = list.space(
-      params.replace(re.urlFunction, "$1$2")
-    ).map(quoteNamespaceURL).join("");
+    params = list.space(params.replace(re.urlFunction, "$1$2"))
+      .map(quoteNamespaceURL)
+      .join("");
   }
 
   if (atRule.name === "keyframes") {
