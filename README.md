@@ -77,16 +77,21 @@ This package also installs a command line interface.
     Usage: csswring [options] INPUT [OUTPUT]
     
     Description:
-      Minify CSS file with source maps. That’s only.
+      Minify CSS using PostCSS
     
     Options:
           --sourcemap            Create source map file.
           --preserve-hacks       Preserve some CSS hacks.
           --remove-all-comments  Remove all comments.
       -h, --help                 Show this message.
-      -v, --version              Print version information.
+          --version              Print version information.
     
     Use a single dash for INPUT to read CSS from standard input.
+    
+    Examples:
+      $ csswring foo.css
+      $ csswring foo.css > foo.min.css
+      $ cat foo.css bar.css baz.css | csswring - > fbb.min.css
 
 When PostCSS failed to parse INPUT, CLI shows a CSS parse error in GNU error
 format instead of Node.js stack trace.
