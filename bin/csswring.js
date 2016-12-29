@@ -16,8 +16,7 @@ const argv = minimist(process.argv.slice(2), {
     "version"
   ],
   alias: {
-    "h": "help",
-    "v": "version"
+    "h": "help"
   },
   default: {
     "help": false,
@@ -41,7 +40,7 @@ Options:
       --preserve-hacks       Preserve some CSS hacks.
       --remove-all-comments  Remove all comments.
   -h, --help                 Show this message.
-  -v, --version              Print version information.
+      --version              Print version information.
 
 Use a single dash for INPUT to read CSS from standard input.
 
