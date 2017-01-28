@@ -575,13 +575,10 @@ module.exports = postcss.plugin(pkg.name, function (opts) {
     opts = {};
   }
 
-  if (!opts.preserveHacks) {
-    opts.preserveHacks = false;
-  }
-
-  if (!opts.removeAllComments) {
-    opts.removeAllComments = false;
-  }
+  opts = Object.assign({
+    preserveHacks: false,
+    removeAllComments: false
+  }, opts);
 
   return function (css) {
     css.raws.semicolon = false;
