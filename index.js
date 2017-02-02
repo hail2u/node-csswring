@@ -570,7 +570,7 @@ function wringAtRule(atRule) {
   }
 }
 
-module.exports = postcss.plugin(pkg.name, function (opts) {
+module.exports = postcss.plugin(pkg.name, (opts) => {
   if (!opts) {
     opts = {};
   }
@@ -580,7 +580,7 @@ module.exports = postcss.plugin(pkg.name, function (opts) {
     removeAllComments: false
   }, opts);
 
-  return function (css) {
+  return (css) => {
     css.raws.semicolon = false;
     css.raws.after = "";
     css.walkComments(wringComment.bind(null, opts.removeAllComments));
