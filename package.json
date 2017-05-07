@@ -1,7 +1,7 @@
 {
   "name": "csswring",
   "description": "Minify CSS using PostCSS",
-  "version": "5.1.1",
+  "version": "6.0.0",
   "author": "Kyo Nagashima <hail2u@gmail.com> (https://kyonagashima.com/)",
   "bin": {
     "csswring": "./bin/csswring.js"
