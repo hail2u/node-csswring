@@ -110,7 +110,8 @@ function removeUnitOfZero(prop, m, leading, num, u, position, value) {
     prop === "-webkit-flex" ||
     prop === "flex-basis" ||
     prop === "-webkit-flex-basis" ||
-    value.indexOf("calc(") !== -1
+    value.indexOf("calc(") !== -1 ||
+    prop.startsWith("--")
   ) {
     return m;
   }

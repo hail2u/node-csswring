@@ -1,0 +1,7 @@
+:root {
+  --foo: 0px;
+}
+
+.foo {
+  top: calc(var(--foo));
+}
