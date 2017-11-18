@@ -193,11 +193,15 @@ function unquoteAttributeSelector(m, att, con, val, oq, flag) {
     val = `${quote}${val}${quote}`;
   }
 
-  if (flag === "i") {
-    val = `${val} i`;
+  if (!flag) {
+    flag = "";
   }
 
-  return `[${att}${con}${val}]`;
+  if (flag && !val.startsWith(quote)) {
+    flag = ` ${flag}`;
+  }
+
+  return `[${att}${con}${val}${flag}]`;
 }
 
 // Remove white spaces from string
