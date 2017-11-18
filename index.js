@@ -181,7 +181,7 @@ function wringValue(prop, value) {
 }
 
 // Unquote attribute selector if possible
-function unquoteAttributeSelector(m, att, con, val) {
+function unquoteAttributeSelector(m, att, con, val, oq, flag) {
   if (!con || !val) {
     return `[${att}]`;
   }
@@ -191,6 +191,10 @@ function unquoteAttributeSelector(m, att, con, val) {
 
   if (!canUnquote(val)) {
     val = `${quote}${val}${quote}`;
+  }
+
+  if (flag === "i") {
+    val = `${val} i`;
   }
 
   return `[${att}${con}${val}]`;
