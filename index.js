@@ -181,7 +181,7 @@ function wringValue(prop, value) {
 }
 
 // Unquote attribute selector if possible
-function unquoteAttributeSelector(m, att, con, val) {
+function unquoteAttributeSelector(m, att, con, val, oq, flag) {
   if (!con || !val) {
     return `[${att}]`;
   }
@@ -193,7 +193,15 @@ function unquoteAttributeSelector(m, att, con, val) {
     val = `${quote}${val}${quote}`;
   }
 
-  return `[${att}${con}${val}]`;
+  if (!flag) {
+    flag = "";
+  }
+
+  if (flag && !val.startsWith(quote)) {
+    flag = ` ${flag}`;
+  }
+
+  return `[${att}${con}${val}${flag}]`;
 }
 
 // Remove white spaces from string
