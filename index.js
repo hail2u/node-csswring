@@ -101,7 +101,16 @@ function toShortestColor(m, leading, r1, r2, g1, g2, b1, b2) {
 }
 
 // Remove unit from 0 length and 0 percentage if possible
-function removeUnitOfZero(prop, m, leading, num, u, position, value) {
+function removeUnitOfZero(
+  preserveHacks,
+  prop,
+  m,
+  leading,
+  num,
+  u,
+  position,
+  value
+) {
   if (
     prop === "flex" ||
     prop === "-ms-flex" ||
@@ -109,7 +118,8 @@ function removeUnitOfZero(prop, m, leading, num, u, position, value) {
     prop === "flex-basis" ||
     prop === "-webkit-flex-basis" ||
     value.indexOf("calc(") !== -1 ||
-    prop.startsWith("--")
+    prop.startsWith("--") ||
+    (preserveHacks && prop === "min-width" && u === "%")
   ) {
     return m;
   }
@@ -160,7 +170,7 @@ function removeCalcWhiteSpaces(m, leading, calc) {
 }
 
 // Wring value of declaration
-function wringValue(prop, value) {
+function wringValue(preserveHacks, prop, value) {
   return value
     .replace(re.colorFunction, toRGBColor)
     .replace(re.colorHex, toShortestColor)
@@ -170,7 +180,7 @@ function wringValue(prop, value) {
     .replace(re.whiteSpacesAfterSymbol, "$1")
     .replace(re.whiteSpacesBeforeSymbol, "$1")
     .replace(re.numberLeadingZeros, "$1$2")
-    .replace(re.zeroValueUnit, removeUnitOfZero.bind(null, prop))
+    .replace(re.zeroValueUnit, removeUnitOfZero.bind(null, preserveHacks, prop))
     .replace(re.decimalWithZeros, "$1$2$3.$4")
     .replace(re.timeEndsWithZero, toShortestTime)
     .replace(re.angle, toShortestAngle)
@@ -393,7 +403,7 @@ function wringDecl(preserveHacks, decl) {
 
   let values = list.comma(value);
 
-  value = values.map(wringValue.bind(null, prop)).join(",");
+  value = values.map(wringValue.bind(null, preserveHacks, prop)).join(",");
 
   if (re.propertyMultipleValues.test(prop)) {
     values = list.space(value);
