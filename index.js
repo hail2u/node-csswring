@@ -1,5 +1,3 @@
-"use strict";
-
 const color = require("./lib/color");
 const list = require("postcss/lib/list");
 const onecolor = require("onecolor");
@@ -24,7 +22,7 @@ function isSourceMapAnnotation(comment) {
 // Set quotation mark
 function setQuote(quote) {
   if (!quote) {
-    quote = "\"";
+    quote = '"';
   }
 
   return quote;
@@ -133,7 +131,7 @@ function toShortestAngle(m, leading, n, u) {
   n = parseInt(n, 10);
 
   if (Number.isInteger(n / 10)) {
-    return `${leading}${(n * (360 / 400))}deg`;
+    return `${leading}${n * (360 / 400)}deg`;
   }
 
   return `${leading}${n}${u}`;
@@ -163,7 +161,8 @@ function removeCalcWhiteSpaces(m, leading, calc) {
 
 // Wring value of declaration
 function wringValue(prop, value) {
-  return value.replace(re.colorFunction, toRGBColor)
+  return value
+    .replace(re.colorFunction, toRGBColor)
     .replace(re.colorHex, toShortestColor)
     .replace(re.colorTransparent, "$1transparent ")
     .trim()
@@ -211,13 +210,13 @@ function removeWhiteSpaces(string) {
 
 // Remove white spaces from both ends of `:not()`
 function trimNegationFunction(m, not) {
-  return `:not(${  not.trim()  })`;
+  return `:not(${not.trim()})`;
 }
 
 // Remove white spaces around `>`, `+`, and `~`, but not `\>`, `\+`, and `\~`
 function trimSelectorCombinator(m, combinator, backslash) {
   if (backslash) {
-    return ` ${  combinator  } `;
+    return ` ${combinator} `;
   }
 
   return combinator;
@@ -225,7 +224,8 @@ function trimSelectorCombinator(m, combinator, backslash) {
 
 // Wring selector of ruleset
 function wringSelector(selector) {
-  return selector.replace(re.whiteSpaces, " ")
+  return selector
+    .replace(re.whiteSpaces, " ")
     .replace(re.selectorAtt, unquoteAttributeSelector)
     .replace(re.selectorFunctions, removeWhiteSpaces)
     .replace(re.selectorNegationFunction, trimNegationFunction)
@@ -280,7 +280,7 @@ function removeDuplicateDeclaration(decls, decl) {
 function isRequiredFontFaceDescriptor(decl) {
   const prop = decl.prop;
 
-  return (prop === "src") || (prop === "font-family");
+  return prop === "src" || prop === "font-family";
 }
 
 // Remove `@font-face` descriptor with default value
@@ -346,10 +346,8 @@ function wringDecl(preserveHacks, decl) {
 
   if (
     !preserveHacks &&
-    (
-      (before && before.match(re.hackSignProp) !== null) ||
-      (between && between.match(re.hackPropComment) !== null)
-    )
+    ((before && before.match(re.hackSignProp) !== null) ||
+      (between && between.match(re.hackPropComment) !== null))
   ) {
     decl.remove();
 
@@ -357,13 +355,7 @@ function wringDecl(preserveHacks, decl) {
   }
 
   if (preserveHacks && before) {
-    before = before.replace(
-      re.semicolons,
-      ""
-    ).replace(
-      re.whiteSpaces,
-      ""
-    );
+    before = before.replace(re.semicolons, "").replace(re.whiteSpaces, "");
   } else {
     before = "";
   }
@@ -391,7 +383,8 @@ function wringDecl(preserveHacks, decl) {
   }
 
   if (prop === "font-family") {
-    decl.value = list.comma(value)
+    decl.value = list
+      .comma(value)
       .map(unquoteFontFamily)
       .join(",");
 
@@ -440,7 +433,7 @@ function wringDeclLike(m, prop, value) {
 
   wringDecl.call(null, false, decl);
 
-  return `(${  decl.toString()  })`;
+  return `(${decl.toString()})`;
 }
 
 // Wring ruleset
@@ -484,10 +477,7 @@ function filterAtRule(flag, rule) {
     return;
   }
 
-  if (
-    type !== "atrule" ||
-    (name !== "charset" && name !== "import")
-  ) {
+  if (type !== "atrule" || (name !== "charset" && name !== "import")) {
     flag.filter = true;
 
     return;
@@ -544,17 +534,14 @@ function wringAtRule(atRule) {
     .replace(re.whiteSpacesBeforeSymbol, "$1");
 
   if (atRule.name === "import") {
-    params = params.replace(
-      re.urlFunction,
-      "$1$2"
-    ).replace(
-      re.quotedString,
-      quoteImportURL
-    );
+    params = params
+      .replace(re.urlFunction, "$1$2")
+      .replace(re.quotedString, quoteImportURL);
   }
 
   if (atRule.name === "namespace") {
-    params = list.space(params.replace(re.urlFunction, "$1$2"))
+    params = list
+      .space(params.replace(re.urlFunction, "$1$2"))
       .map(quoteNamespaceURL)
       .join("");
   }
@@ -572,41 +559,44 @@ function wringAtRule(atRule) {
   if (
     atRule.params === "" ||
     params.indexOf("(") === 0 ||
-    params.indexOf("\"") === 0 ||
+    params.indexOf('"') === 0 ||
     params.indexOf("'") === 0
   ) {
     atRule.raws.afterName = "";
   }
 }
 
-module.exports = postcss.plugin(pkg.name, (opts) => {
+module.exports = postcss.plugin(pkg.name, opts => {
   if (!opts) {
     opts = {};
   }
 
-  opts = Object.assign({
-    preserveHacks: false,
-    removeAllComments: false
-  }, opts);
+  opts = Object.assign(
+    {
+      preserveHacks: false,
+      removeAllComments: false
+    },
+    opts
+  );
 
-  return (css) => {
+  return css => {
     css.raws.semicolon = false;
     css.raws.after = "";
     css.walkComments(wringComment.bind(null, opts.removeAllComments));
     css.walkDecls(wringDecl.bind(null, opts.preserveHacks));
     css.walkRules(wringRule);
-    css.each(filterAtRule.bind(null, {
-      charset: false,
-      filter: false
-    }));
+    css.each(
+      filterAtRule.bind(null, {
+        charset: false,
+        filter: false
+      })
+    );
     css.walkAtRules(wringAtRule);
 
     return css;
   };
 });
 
-module.exports.wring = function (css, opts) {
-  return postcss([
-    this(opts)
-  ]).process(css, opts);
+module.exports.wring = function(css, opts) {
+  return postcss([this(opts)]).process(css, opts);
 };

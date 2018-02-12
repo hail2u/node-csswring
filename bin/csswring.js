@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-"use strict";
-
 const csswring = require("../index");
 const fs = require("fs");
 const minimist = require("minimist");
@@ -16,14 +14,14 @@ const argv = minimist(process.argv.slice(2), {
     "version"
   ],
   alias: {
-    "h": "help"
+    h: "help"
   },
   default: {
-    "help": false,
+    help: false,
     "preserve-hacks": false,
     "remove-all-comments": false,
-    "sourcemap": false,
-    "version": false
+    sourcemap: false,
+    version: false
   }
 });
 const binname = Object.keys(pkg.bin)[0];
@@ -53,8 +51,9 @@ Examples:
 }
 
 function wring(s, o) {
-  csswring.wring(s, o)
-    .then((result) => {
+  csswring
+    .wring(s, o)
+    .then(result => {
       if (!o.to) {
         process.stdout.write(result.css);
 
@@ -67,9 +66,11 @@ function wring(s, o) {
         fs.writeFileSync(`${o.to}.map`, result.map);
       }
     })
-    .catch((error) => {
+    .catch(error => {
       if (error.name === "CssSyntaxError") {
-        console.error(`${error.file}:${error.line}:${error.column}: ${error.reason}`);
+        console.error(
+          `${error.file}:${error.line}:${error.column}: ${error.reason}`
+        );
         process.exit(1);
       }
 
@@ -82,45 +83,45 @@ if (argv._.length < 1) {
 }
 
 switch (true) {
-case argv.version:
-  console.log(`${binname} v${pkg.version}`);
+  case argv.version:
+    console.log(`${binname} v${pkg.version}`);
 
-  break;
+    break;
 
-case argv.help:
-  showHelp();
+  case argv.help:
+    showHelp();
 
-  break;
+    break;
 
-default:
-  if (argv["preserve-hacks"]) {
-    options.preserveHacks = true;
-  }
+  default:
+    if (argv["preserve-hacks"]) {
+      options.preserveHacks = true;
+    }
 
-  if (argv["remove-all-comments"]) {
-    options.removeAllComments = true;
-  }
+    if (argv["remove-all-comments"]) {
+      options.removeAllComments = true;
+    }
 
-  if (argv.sourcemap) {
-    options.map = true;
-  }
+    if (argv.sourcemap) {
+      options.map = true;
+    }
 
-  options.from = argv._[0];
+    options.from = argv._[0];
 
-  if (argv._[1]) {
-    options.to = argv._[1];
-  }
+    if (argv._[1]) {
+      options.to = argv._[1];
+    }
 
-  if (options.map && options.to) {
-    options.map = {
-      inline: false
-    };
-  }
+    if (options.map && options.to) {
+      options.map = {
+        inline: false
+      };
+    }
 
-  if (options.from === "-") {
-    delete options.from;
-    argv._[0] = process.stdin.fd;
-  }
+    if (options.from === "-") {
+      delete options.from;
+      argv._[0] = process.stdin.fd;
+    }
 
-  wring(fs.readFileSync(argv._[0], "utf8"), options);
+    wring(fs.readFileSync(argv._[0], "utf8"), options);
 }
