@@ -1,13 +1,12 @@
-var fs = require("fs");
-var path = require("path");
-var postcss = require("postcss");
+const fs = require("fs");
+const path = require("path");
+const postcss = require("postcss");
 
-var csswring = require("../index");
+const csswring = require("../index");
 
-exports["Public API"] = function(test) {
-  var expected;
-  var input = ".foo{color:black}";
-  expected = postcss().process(input).css;
+exports["Public API"] = test => {
+  const input = ".foo{color:black}";
+  const expected = postcss().process(input).css;
 
   test.expect(2);
 
@@ -18,17 +17,16 @@ exports["Public API"] = function(test) {
   test.done();
 };
 
-exports["Option: PostCSS options"] = function(test) {
-  var expected;
-  var input = ".foo{color:black}";
-  var opts = {
+exports["Option: PostCSS options"] = test => {
+  const input = ".foo{color:black}";
+  const opts = {
     from: "from.css",
     map: {
       inline: false
     }
   };
-  var processed = csswring.wring(input, opts);
-  expected = postcss().process(input, opts);
+  const processed = csswring.wring(input, opts);
+  const expected = postcss().process(input, opts);
 
   test.expect(2);
 
@@ -39,10 +37,10 @@ exports["Option: PostCSS options"] = function(test) {
   test.done();
 };
 
-exports["Option: preserveHacks"] = function(test) {
-  var expected = ".hacks{_color:red}";
-  var input = expected;
-  var opts = {
+exports["Option: preserveHacks"] = test => {
+  let expected = ".hacks{_color:red}";
+  const input = expected;
+  const opts = {
     preserveHacks: true
   };
 
@@ -59,11 +57,11 @@ exports["Option: preserveHacks"] = function(test) {
   test.done();
 };
 
-exports["Option: removeAllComments"] = function(test) {
-  var expected = ".foo{display:block}\n/*# sourceMappingURL=to.css.map */";
-  var input =
+exports["Option: removeAllComments"] = test => {
+  let expected = ".foo{display:block}\n/*# sourceMappingURL=to.css.map */";
+  const input =
     "/*!comment*/.foo{display:block}\n/*# sourceMappingURL=to.css.map */";
-  var opts = {
+  const opts = {
     map: {
       inline: false
     },
@@ -84,25 +82,17 @@ exports["Option: removeAllComments"] = function(test) {
   test.done();
 };
 
-exports["Real CSS"] = function(test) {
-  var testCases = fs.readdirSync(path.join(__dirname, "fixtures"));
-
-  var loadExpected = function(file) {
-    file = path.join(__dirname, "expected", file);
-
-    return fs.readFileSync(file, "utf8").trim();
-  };
-
-  var loadInput = function(file) {
-    file = path.join(__dirname, "fixtures", file);
-
-    return fs.readFileSync(file, "utf8");
-  };
+exports["Real CSS"] = test => {
+  const testCases = fs.readdirSync(path.join(__dirname, "fixtures"));
+  const loadExpected = file =>
+    fs.readFileSync(path.join(__dirname, "expected", file), "utf8").trim();
+  const loadInput = file =>
+    fs.readFileSync(path.join(__dirname, "fixtures", file), "utf8");
 
   test.expect(testCases.length);
 
-  testCases.forEach(function(testCase) {
-    var opts = {};
+  testCases.forEach(testCase => {
+    const opts = {};
 
     if (testCase.indexOf("hacks_") === 0) {
       opts.preserveHacks = true;

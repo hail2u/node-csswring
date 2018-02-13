@@ -7,7 +7,7 @@ const re = require("./lib/regexp");
 const unit = require("./lib/unit");
 
 // Check comment is a source map annotation or not
-function isSourceMapAnnotation(comment) {
+const isSourceMapAnnotation = comment => {
   if (
     comment.parent.type === "root" &&
     comment.parent.last === comment &&
@@ -17,19 +17,19 @@ function isSourceMapAnnotation(comment) {
   }
 
   return false;
-}
+};
 
 // Set quotation mark
-function setQuote(quote) {
+const setQuote = quote => {
   if (!quote) {
-    quote = '"';
+    return '"';
   }
 
   return quote;
-}
+};
 
 // Check string can unquote or not
-function canUnquote(str) {
+const canUnquote = str => {
   const firstChar = str.slice(0, 1);
 
   if (re.number.test(firstChar)) {
@@ -50,43 +50,43 @@ function canUnquote(str) {
   }
 
   return false;
-}
+};
 
 // Unquote font family name if possible
-function unquoteFontFamily(family) {
+const unquoteFontFamily = family => {
   if (family.match(re.varFunction)) {
     return family;
   }
 
-  family = family.replace(re.quotedString, "$2");
+  let newFamily = family.replace(re.quotedString, "$2");
   const quote = setQuote(RegExp.$1);
 
-  if (!list.space(family).every(canUnquote)) {
-    family = `${quote}${family}${quote}`;
+  if (!list.space(newFamily).every(canUnquote)) {
+    newFamily = `${quote}${newFamily}${quote}`;
   }
 
-  return family;
-}
+  return newFamily;
+};
 
 // Convert colors to HEX or `rgba()` notation
-function toRGBColor(m, leading, c) {
-  c = onecolor(c);
+const toRGBColor = (m, leading, c) => {
+  const co = onecolor(c);
 
   /* istanbul ignore if  */
   // Return unmodified value when `one.color` failed to parse `c`
-  if (!c) {
+  if (!co) {
     return m;
   }
 
-  if (c.alpha() < 1) {
-    return `${leading}${c.cssa()}`;
+  if (co.alpha() < 1) {
+    return `${leading}${co.cssa()}`;
   }
 
-  return `${leading}${c.hex()} `;
-}
+  return `${leading}${co.hex()} `;
+};
 
 // Convert to shortest color
-function toShortestColor(m, leading, r1, r2, g1, g2, b1, b2) {
+const toShortestColor = (m, leading, r1, r2, g1, g2, b1, b2) => {
   let c = `#${r1}${r2}${g1}${g2}${b1}${b2}`;
 
   if (r1 === r2 && g1 === g2 && b1 === b2) {
@@ -98,10 +98,10 @@ function toShortestColor(m, leading, r1, r2, g1, g2, b1, b2) {
   }
 
   return `${leading}${c.toLowerCase()}`;
-}
+};
 
 // Remove unit from 0 length and 0 percentage if possible
-function removeUnitOfZero(
+const removeUnitOfZero = (
   preserveHacks,
   prop,
   m,
@@ -110,7 +110,7 @@ function removeUnitOfZero(
   u,
   position,
   value
-) {
+) => {
   if (
     prop === "flex" ||
     prop === "-ms-flex" ||
@@ -125,31 +125,30 @@ function removeUnitOfZero(
   }
 
   if (unit.forZero.hasOwnProperty(u)) {
-    num = `${num}${unit.forZero[u]}`;
+    return `${leading}${num}${unit.forZero[u]}`;
   }
 
   return `${leading}${num}`;
-}
+};
 
 // Convert to shortest time
-function toShortestTime(m, leading, n) {
-  return `${leading}${(parseInt(n, 10) / 100).toString().replace(/^0+/, "")}s`;
-}
+const toShortestTime = (m, leading, n) =>
+  `${leading}${(parseInt(n, 10) / 100).toString().replace(/^0+/, "")}s`;
 
 // Convert to shortest angle
-function toShortestAngle(m, leading, n, u) {
-  n = parseInt(n, 10);
+const toShortestAngle = (m, leading, n, u) => {
+  const num = parseInt(n, 10);
 
-  if (Number.isInteger(n / 10)) {
-    return `${leading}${n * (360 / 400)}deg`;
+  if (Number.isInteger(num / 10)) {
+    return `${leading}${num * (360 / 400)}deg`;
   }
 
-  return `${leading}${n}${u}`;
-}
+  return `${leading}${num}${u}`;
+};
 
 // Unquote inside `url()` notation if possible
-function unquoteURL(m, leading, url) {
-  url = url.replace(re.quotedString, "$2");
+const unquoteURL = (m, leading, u) => {
+  let url = u.replace(re.quotedString, "$2");
   const quote = setQuote(RegExp.$1);
 
   url = url.replace(re.escapedBraces, "$1");
@@ -159,19 +158,15 @@ function unquoteURL(m, leading, url) {
   }
 
   return `${leading}url(${url})`;
-}
+};
 
 // Remove white spaces inside `calc()` notation
-function removeCalcWhiteSpaces(m, leading, calc) {
-  return `${leading}calc(${calc.replace(
-    re.whiteSpacesBothEndsOfSymbol,
-    "$1"
-  )})`;
-}
+const removeCalcWhiteSpaces = (m, leading, calc) =>
+  `${leading}calc(${calc.replace(re.whiteSpacesBothEndsOfSymbol, "$1")})`;
 
 // Wring value of declaration
-function wringValue(preserveHacks, prop, value) {
-  return value
+const wringValue = (preserveHacks, prop, value) =>
+  value
     .replace(re.colorFunction, toRGBColor)
     .replace(re.colorHex, toShortestColor)
     .replace(re.colorTransparent, "$1transparent ")
@@ -187,54 +182,51 @@ function wringValue(preserveHacks, prop, value) {
     .replace(re.freqEndsWithThreeZeros, "$1$2kHz")
     .replace(re.urlFunction, unquoteURL)
     .replace(re.calcFunction, removeCalcWhiteSpaces);
-}
 
 // Unquote attribute selector if possible
-function unquoteAttributeSelector(m, att, con, val, oq, flag) {
+const unquoteAttributeSelector = (m, att, con, val, oq, f) => {
   if (!con || !val) {
     return `[${att}]`;
   }
 
-  val = val.trim().replace(re.quotedString, "$2");
+  let value = val.trim().replace(re.quotedString, "$2");
   const quote = setQuote(RegExp.$1);
 
-  if (!canUnquote(val)) {
-    val = `${quote}${val}${quote}`;
+  if (!canUnquote(value)) {
+    value = `${quote}${value}${quote}`;
   }
+
+  let flag = f;
 
   if (!flag) {
     flag = "";
   }
 
-  if (flag && !val.startsWith(quote)) {
+  if (flag && !value.startsWith(quote)) {
     flag = ` ${flag}`;
   }
 
-  return `[${att}${con}${val}${flag}]`;
-}
+  return `[${att}${con}${value}${flag}]`;
+};
 
 // Remove white spaces from string
-function removeWhiteSpaces(string) {
-  return string.replace(re.whiteSpaces, "");
-}
+const removeWhiteSpaces = string => string.replace(re.whiteSpaces, "");
 
 // Remove white spaces from both ends of `:not()`
-function trimNegationFunction(m, not) {
-  return `:not(${not.trim()})`;
-}
+const trimNegationFunction = (m, not) => `:not(${not.trim()})`;
 
 // Remove white spaces around `>`, `+`, and `~`, but not `\>`, `\+`, and `\~`
-function trimSelectorCombinator(m, combinator, backslash) {
+const trimSelectorCombinator = (m, combinator, backslash) => {
   if (backslash) {
     return ` ${combinator} `;
   }
 
   return combinator;
-}
+};
 
 // Wring selector of ruleset
-function wringSelector(selector) {
-  return selector
+const wringSelector = selector =>
+  selector
     .replace(re.whiteSpaces, " ")
     .replace(re.selectorAtt, unquoteAttributeSelector)
     .replace(re.selectorFunctions, removeWhiteSpaces)
@@ -242,29 +234,28 @@ function wringSelector(selector) {
     .replace(re.selectorCombinators, trimSelectorCombinator)
     .replace(re.selectorPseudoElements, "$1")
     .replace(re.selectorVerboseUniversal, "$1");
-}
 
 // Check keyframe is valid or not
-function isValidKeyframe(keyframe) {
-  if (keyframe === "from" || keyframe === "to") {
+const isValidKeyframe = k => {
+  if (k === "from" || k === "to") {
     return true;
   }
 
-  keyframe = parseFloat(keyframe);
+  const keyframe = parseFloat(k);
 
   if (!isNaN(keyframe) && keyframe >= 0 && keyframe <= 100) {
     return true;
   }
 
   return false;
-}
+};
 
 // Unique array element
-function uniqueArray(array) {
+const uniqueArray = array => {
   const l = array.length;
   const result = [];
 
-  for (let i = 0; i < l; i++) {
+  for (let i = 0; i < l; i = i + 1) {
     const value = array[i];
 
     if (result.indexOf(value) < 0) {
@@ -273,10 +264,10 @@ function uniqueArray(array) {
   }
 
   return result;
-}
+};
 
 // Remove duplicate declaration
-function removeDuplicateDeclaration(decls, decl) {
+const removeDuplicateDeclaration = (decls, decl) => {
   const d = `${decl.raws.before}${decl.prop}${decl.raws.between}${decl.value}`;
 
   if (decls.hasOwnProperty(d)) {
@@ -284,19 +275,18 @@ function removeDuplicateDeclaration(decls, decl) {
   }
 
   decls[d] = decl;
-}
+};
 
 // Check required `@font-face` descriptor or not
-function isRequiredFontFaceDescriptor(decl) {
-  const prop = decl.prop;
+const isRequiredFontFaceDescriptor = decl => {
+  const { prop } = decl;
 
   return prop === "src" || prop === "font-family";
-}
+};
 
 // Remove `@font-face` descriptor with default value
-function removeDefaultFontFaceDescriptor(decl) {
-  const prop = decl.prop;
-  const value = decl.value;
+const removeDefaultFontFaceDescriptor = decl => {
+  const { prop, value } = decl;
 
   if (
     (re.descriptorFontFace.test(prop) && value === "normal") ||
@@ -305,29 +295,29 @@ function removeDefaultFontFaceDescriptor(decl) {
   ) {
     decl.remove();
   }
-}
+};
 
 // Quote `@import` URL
-function quoteImportURL(m, quote, url) {
-  quote = setQuote(quote);
+const quoteImportURL = (m, quote, url) => {
+  const newQuote = setQuote(quote);
 
-  return `${quote}${url}${quote}`;
-}
+  return `${newQuote}${url}${newQuote}`;
+};
 
 // Quote `@namespace` URL
-function quoteNamespaceURL(param, index, p) {
-  if (param === p[p.length - 1]) {
-    param = param.replace(re.quotedString, "$2");
-    const quote = setQuote(RegExp.$1);
-
-    param = `${quote}${param}${quote}`;
+const quoteNamespaceURL = (param, index, params) => {
+  if (param !== params[params.length - 1]) {
+    return param;
   }
 
-  return param;
-}
+  const newParam = param.replace(re.quotedString, "$2");
+  const quote = setQuote(RegExp.$1);
+
+  return `${quote}${newParam}${quote}`;
+};
 
 // Wring comment
-function wringComment(removeAllComments, comment) {
+const wringComment = (removeAllComments, comment) => {
   if (
     (removeAllComments || comment.text.indexOf("!") !== 0) &&
     !isSourceMapAnnotation(comment)
@@ -338,15 +328,14 @@ function wringComment(removeAllComments, comment) {
   }
 
   comment.raws.before = "";
-}
+};
 
 // Wring declaration
-function wringDecl(preserveHacks, decl) {
-  const prop = decl.prop;
+const wringDecl = (preserveHacks, decl) => {
+  const { prop } = decl;
 
-  let before = decl.raws.before;
-  let between = decl.raws.between;
-  let value = decl.value;
+  let { before, between } = decl.raws;
+  let { value } = decl;
 
   if (!prop.match(re.validProp)) {
     decl.remove();
@@ -432,10 +421,10 @@ function wringDecl(preserveHacks, decl) {
   }
 
   decl.value = value;
-}
+};
 
 // Wring declaration like string
-function wringDeclLike(m, prop, value) {
+const wringDeclLike = (m, prop, value) => {
   const decl = postcss.decl({
     prop: prop,
     value: value
@@ -444,10 +433,10 @@ function wringDeclLike(m, prop, value) {
   wringDecl.call(null, false, decl);
 
   return `(${decl.toString()})`;
-}
+};
 
 // Wring ruleset
-function wringRule(rule) {
+const wringRule = rule => {
   rule.raws.before = "";
   rule.raws.between = "";
   rule.raws.semicolon = false;
@@ -459,7 +448,7 @@ function wringRule(rule) {
     return;
   }
 
-  const parent = rule.parent;
+  const { parent } = rule;
   let selectors = rule.selectors.map(wringSelector);
 
   if (parent.type === "atrule" && parent.name === "keyframes") {
@@ -476,12 +465,11 @@ function wringRule(rule) {
   const decls = {};
 
   rule.each(removeDuplicateDeclaration.bind(null, decls));
-}
+};
 
 // Filter at-rule
-function filterAtRule(flag, rule) {
-  const name = rule.name;
-  const type = rule.type;
+const filterAtRule = (flag, rule) => {
+  const { name, type } = rule;
 
   if (type === "comment") {
     return;
@@ -501,13 +489,11 @@ function filterAtRule(flag, rule) {
 
   if (flag.filter || (name === "charset" && flag.charset)) {
     rule.remove();
-
-    return;
   }
-}
+};
 
 // Wring at-rule
-function wringAtRule(atRule) {
+const wringAtRule = atRule => {
   atRule.raws.before = "";
   atRule.raws.afterName = " ";
   atRule.raws.between = "";
@@ -574,20 +560,14 @@ function wringAtRule(atRule) {
   ) {
     atRule.raws.afterName = "";
   }
-}
+};
 
-module.exports = postcss.plugin(pkg.name, opts => {
-  if (!opts) {
-    opts = {};
-  }
-
-  opts = Object.assign(
-    {
-      preserveHacks: false,
-      removeAllComments: false
-    },
-    opts
-  );
+module.exports = postcss.plugin(pkg.name, options => {
+  const opts = {
+    preserveHacks: false,
+    removeAllComments: false,
+    ...options
+  };
 
   return css => {
     css.raws.semicolon = false;
@@ -602,11 +582,11 @@ module.exports = postcss.plugin(pkg.name, opts => {
       })
     );
     css.walkAtRules(wringAtRule);
-
-    return css;
   };
 });
 
 module.exports.wring = function(css, opts) {
   return postcss([this(opts)]).process(css, opts);
 };
+
+/* eslint no-param-reassign: [ "error", { "props": true, "ignorePropertyModificationsFor": [ "decls", "comment", "decl", "rule", "flag", "atRule", "css" ] } ] */
