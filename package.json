@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "minimist": "^1.2.0",
-    "onecolor": "^3.0.4",
-    "postcss": "^6.0.9"
+    "onecolor": "^3.0.5",
+    "postcss": "^6.0.17"
   },
   "devDependencies": {
     "nodeunit": "^0.11.1"
