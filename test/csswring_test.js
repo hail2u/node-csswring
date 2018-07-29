@@ -3,10 +3,11 @@ const path = require("path");
 const postcss = require("postcss");
 
 const csswring = require("../index");
+const doNothing = postcss.plugin("do-nothing", () => () => {});
 
 exports["Public API"] = test => {
   const input = ".foo{color:black}";
-  const expected = postcss().process(input).css;
+  const expected = postcss(doNothing).process(input).css;
 
   test.expect(2);
 
@@ -26,7 +27,7 @@ exports["Option: PostCSS options"] = test => {
     }
   };
   const processed = csswring.wring(input, opts);
-  const expected = postcss().process(input, opts);
+  const expected = postcss(doNothing).process(input, opts);
 
   test.expect(2);
 
