@@ -8,13 +8,9 @@ const doNothing = postcss.plugin("do-nothing", () => () => {});
 exports["Public API"] = test => {
   const input = ".foo{color:black}";
   const expected = postcss(doNothing).process(input).css;
-
   test.expect(2);
-
   test.strictEqual(csswring.wring(input).css, expected);
-
   test.strictEqual(postcss([csswring()]).process(input).css, expected);
-
   test.done();
 };
 
@@ -28,13 +24,9 @@ exports["Option: PostCSS options"] = test => {
   };
   const processed = csswring.wring(input, opts);
   const expected = postcss(doNothing).process(input, opts);
-
   test.expect(2);
-
   test.strictEqual(processed.css, expected.css);
-
   test.deepEqual(processed.map, expected.map);
-
   test.done();
 };
 
@@ -44,17 +36,12 @@ exports["Option: preserveHacks"] = test => {
   const opts = {
     preserveHacks: true
   };
-
   test.expect(3);
-
   test.strictEqual(csswring.wring(input, opts).css, expected);
-
   expected = postcss([csswring()]).process(input).css;
   test.notStrictEqual(postcss([csswring(opts)]).process(input).css, expected);
-
   expected = "";
   test.strictEqual(csswring.wring(input).css, expected);
-
   test.done();
 };
 
@@ -68,30 +55,24 @@ exports["Option: removeAllComments"] = test => {
     },
     removeAllComments: true
   };
-
   test.expect(3);
-
   test.strictEqual(csswring.wring(input, opts).css, expected);
-
   expected = postcss([csswring(opts)]).process(input).css;
   test.notStrictEqual(postcss([csswring()]).process(input).css, expected);
-
   opts.removeAllComments = false;
   expected = input;
   test.strictEqual(csswring.wring(input, opts).css, expected);
-
   test.done();
 };
 
 exports["Real CSS"] = test => {
   const testCases = fs.readdirSync(path.join(__dirname, "fixtures"));
-  const loadExpected = file =>
+  const readExpected = file =>
     fs.readFileSync(path.join(__dirname, "expected", file), "utf8").trim();
-  const loadInput = file =>
+  const readInput = file =>
     fs.readFileSync(path.join(__dirname, "fixtures", file), "utf8");
 
   test.expect(testCases.length);
-
   testCases.forEach(testCase => {
     const opts = {};
 
@@ -100,11 +81,10 @@ exports["Real CSS"] = test => {
     }
 
     test.strictEqual(
-      csswring.wring(loadInput(testCase), opts).css,
-      loadExpected(testCase),
+      csswring.wring(readInput(testCase), opts).css,
+      readExpected(testCase),
       testCase
     );
   });
-
   test.done();
 };
