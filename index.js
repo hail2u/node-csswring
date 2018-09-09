@@ -72,7 +72,6 @@ const unquoteFontFamily = family => {
 const toRGBColor = (m, leading, c) => {
   const co = onecolor(c);
 
-  /* istanbul ignore if  */
   // Return unmodified value when `one.color` failed to parse `c`
   if (!co) {
     return m;
